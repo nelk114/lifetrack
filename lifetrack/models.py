@@ -21,3 +21,9 @@ class Habit(models.Model):
 	sdate=models.DateField(default=date.today)
 	def __str__(σ):
 		return σ.name
+
+class Occurence(models.Model):
+	habit=models.ForeignKey(Habit,on_delete=models.CASCADE)
+	date=models.DateField(default=date.today)
+	def __str__(σ):
+		return f'{s.habit} @ {σ.date}'
