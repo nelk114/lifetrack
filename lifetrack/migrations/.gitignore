@@ -1,0 +1,5 @@
+#Autgenerated migration files
+*.py
+#But __init__, whilst initially autogen'd too,
+#is a different thing & (probably) worth tracking
+!__init__.py
