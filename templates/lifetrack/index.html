@@ -76,6 +76,52 @@
             color: #333;
             margin: 5px 0;
         }
+
+        /* Container for testimonials */
+.feedback-container {
+    display: flex;
+    gap: 50px;
+}
+
+/* Individual testimonial card */
+.feedback-card {
+    background-color: #dfd4cd; /* Light beige background */
+    padding: 20px;
+    border-radius: 12px;
+    max-width: 300px;
+    border: 10px solid #5d8198; /* Blue-gray border */
+}
+
+/* Header with name and image */
+.feedback-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Avatar styling */
+.feedback-header img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+/* Rating text */
+.rating {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+    text-align: left;
+}
+
+/* Testimonial text */
+.feedback-text {
+    text-align: left;
+    font-size: 14px;
+    color: #000000;
+}
     </style>
 </head>
 
@@ -110,6 +156,43 @@
         <h6>Beatrice Black</h6>
         <p>Big thanks to the team for creating such a thoughtful and user-friendly tool. It’s become an essential part of my daily life!</p>
     </div>
+
+    <div class="feedback-container">
+        <div class="feedback-card">
+            <div class="feedback-header">
+                <strong>Kyle Chambers</strong>
+                <img src="/media/avatar1.png" alt="User Avatar">
+            </div>
+            <p class="rating">5/5</p>
+            <p class="feedback-text">
+                LifeTrack has completely transformed how I approach my daily habits! The interface is so clean and easy to use, 
+           and I love how I can customize my routines to fit my lifestyle. Highly recommend it to anyone looking to build better habits!
+            </p>
+    </div>
+
+    <div class="feedback-card">
+        <div class="feedback-header">
+            <strong>Kyle Chambers</strong>
+            <img src="/media/avatar2.png" alt="User Avatar">
+        </div>
+        <p class="rating">5/5</p>
+        <p class="feedback-text">
+            LifeTrack has completely transformed how I approach my daily habits! The interface is so clean and easy to use, and I love how I can customize my routines to fit my lifestyle. Highly recommend it to anyone looking to build better habits!
+        </p>
+    </div>
+
+    <div class="feedback-card">
+        <div class="feedback-header">
+            <strong>Kyle Chambers</strong>
+            <img src="avatar3.png" alt="User Avatar">
+        </div>
+        <p class="rating">5/5</p>
+        <p class="feedback-text">
+            LifeTrack has completely transformed how I approach my daily habits! The interface is so clean and easy to use, and I love how I can customize my routines to fit my lifestyle. Highly recommend it to anyone looking to build better habits!
+        </p>
+    </div>
+</div>
+
 </body>
 
 </html>
