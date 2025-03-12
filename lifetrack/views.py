@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 def index(r):
-	return HttpResponse(f'Stub. (index)')
+	return render(r,'lifetrack/index.html')
 
 def login(r):
 	return HttpResponse(f'Stub. (login)')
