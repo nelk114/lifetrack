@@ -40,3 +40,7 @@ def addhabit(r):
 
 def edithabit(r):
 	return HttpResponse(f'Stub. (edithabit)')
+
+def log_out(r):
+	logout(r)
+	return redirect(reverse('lifetrack:index'))
