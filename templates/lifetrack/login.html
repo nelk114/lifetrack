@@ -1,31 +1,101 @@
+<!DOCTYPE html>
 <head>
-<script>
-function showReg(){document.getElementById("user_form").style.display="block";}
-</script>
-</head><body>
-{% if registered %}
-<p>Thanks for registering!</p>
-<p>Now try logging in ☺︎ (if it doesn't work someone's done something wrong — hopefully not us!)</p>
-{% endif %}
-{% if fail == 'disabled' %}
-<p>Sorry, your account is disabled ☹︎ You must've done something really wrong</p>
-{% elif fail == 'login' %}
-<p>Bad username or password</p>
-{% endif %}
-<form id="login_form" method="post" action="{% url 'lifetrack:login' %}">
-{% csrf_token %}
-<input type="hidden" name="form" value="login" />
-<p>Username: <input type="text" name="username" value="" required maxlength="150" /></p>
-<p>Password: <input type="password" name="password" value="" required /></p>
-<input type="submit" value="Log In" />
-<p><a href="#user_form" onclick="showReg()">Not registered?</a></p>
-</form>
-<form id="user_form" method="post"
-	action="{% url 'lifetrack:login' %}" enctype="multipart/form-data"
-	style="display:none;">
-{% csrf_token %}
-<input type="hidden" name="form" value="signup" />
-{{user_form.as_p}}
-<input type="submit" name="submit" value="Register" />
-</form>
+    <script>
+        function showReg(){document.getElementById("user_form").style.display="block";}
+    </script>
+<style>
+    ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background-color: #5d8198;
+    }
+    li {
+        float: left;
+    }
+    li a {
+        display: block;
+        color: white;
+        text-align: center;
+        padding: 25px 25px;
+        text-decoration: none;
+        font-size: 25px;
+    }
+    li a:hover:not(.active) {
+        background-color: #111;
+    }
+    .active {
+        background-color: #5d8198;
+    }
+    .login-container {
+        background-color: #f5e8de;
+        padding: 60px;
+        border-radius: 10x;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    input {
+		display: block;
+        width: 200%;
+        padding: 20px;
+        margin: 10px 0;
+        border: none;
+        background-color: #E6D9D0;
+        border-radius: 5px;
+    }
+    button {
+        background-color: #5c7382;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        cursor: pointer;
+    }
+    a {
+        display: block;
+        margin-top: 10px;
+        color: #678;
+        text-decoration: none;
+    }
+</style>
+</head>
+<body style="background-color:#f5e8de;">
+    <ul>
+        <li><a href="/index/">Home</a></li>
+        <li style="float:right"><a class="active" href="/login/">Login</a></li>
+    </ul>
+    <div>
+        {% if registered %}
+        <p>Thanks for registering!</p>
+        <p>Now try logging in ☺︎ (if it doesn't work someone's done something wrong — hopefully not us!)</p>
+        {% endif %}
+        {% if fail == 'disabled' %}
+        <p>Sorry, your account is disabled ☹︎ You must've done something really wrong</p>
+        {% elif fail == 'login' %}
+        <p>Bad username or password</p>
+        {% endif %}
+        <div class="login-container">
+            <h2>Welcome Back</h2>
+	<form id="login_form" method="post" action="{% url 'lifetrack:login' %}">
+	{% csrf_token %}
+	<input type="hidden" name="form" value="login" />
+	<input type="text" name="username" value="" placeholder="Username" required maxlength="150" />
+	<input type="password" name="password" value="" placeholder="Password" required />
+	<button type="submit"> Log In </button>
+	<p><a href="#user_form" onclick="showReg()">Not registered?</a></p>
+	</form>
+	<form id="user_form" method="post"
+		action="{% url 'lifetrack:login' %}" enctype="multipart/form-data"
+		style="display:none;">
+	{% csrf_token %}
+	<input type="hidden" name="form" value="signup" />
+	{{user_form.as_p}}
+	<input type="submit" name="submit" value="Register" />
+    </form>
+    </div>
+    </div>
 </body>
+</html>
