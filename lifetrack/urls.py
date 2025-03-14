@@ -12,4 +12,5 @@ urlpatterns=[
 	path('editlist/',views.editlist,name='editlist'),
 	path('addhabit/',views.addhabit,name='addhabit'),
 	path('edithabit/',views.edithabit,name='edithabit'),
+	path('logout/',views.log_out,name='logout'),
 ]
