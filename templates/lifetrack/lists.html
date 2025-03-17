@@ -1,0 +1,136 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Tracker</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+            background-color: #dfd4cd;
+        }
+
+        .navbar a {
+            margin: 0 10px;
+            color: #333;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: auto;
+            background: #f3ebe2;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn {
+            display: inline-block;
+            margin: 10px 0;
+            padding: 10px;
+            background: #5d8198;
+            color: #dfd4cd;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+
+        .days {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            padding-left:60px;
+        }
+
+      .tracker {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .day {
+            width: 30px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .habit-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px 0;
+            gap: 5px;
+        }
+
+        .habit-label {
+            width: 60px;
+            text-align: left;
+        }
+
+        .tracker input {
+            width: 18px;
+            height: 18px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="login.html">Sign out</a>
+        <a href="index.html">Main</a>
+        <a href="#">Link 3</a>
+    </div>
+
+    <hr />
+
+    
+       <a href="addlist.html" class="btn" >Add List</a>
+
+       <div class="container">
+
+        <div class="days">
+            <div class="day">Mon</div>
+            <div class="day">Tue</div>
+            <div class="day">Wed</div>
+            <div class="day">Thu</div>
+            <div class="day">Fri</div>
+            <div class="day">Sat</div>
+            <div class="day">Sun</div>
+        </div>
+
+        <div class="habit-row">
+            <p class="habit-label">Habit 1</p>
+            <div class="tracker">
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+            </div>
+        </div>
+
+        <div class="habit-row">
+            <p class="habit-label">Habit 2</p>
+            <div class="tracker">
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+                <div class="day"><input type="checkbox"></div>
+            </div>
+        </div>
+
+        <a href="editlist.html" class="btn">Edit</a>
+    </div>
+</body>
+
+</html>
