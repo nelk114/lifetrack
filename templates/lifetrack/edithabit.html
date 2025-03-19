@@ -3,31 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit habit</title>
+    <title>Edit Habit</title>
     <style>
         body {
             margin: 0;
             padding: 0;
             background-color: #f3ebe2;
-        }
-        .navbar {
-            background-color: #333;
-            overflow: hidden;
-        }
-        .navbar a {
-            float: left;
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 20px;
-            text-decoration: none;
-        }
-        .navbar a:hover {
-            background-color: #f3ebe2;
-            color: black;
-        }
-        .container {
-            padding: 20px;
         }
         ul {
           list-style-type: none;
@@ -40,18 +21,41 @@
         li {
           float: left;
         }
+        
+        li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 25px 25px;
+          text-decoration: none;
+          font-size: 25px;
+        }
+        
+        li a:hover:not(.active) {
+          background-color: #111;
+        }
+        .container {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
         .habit-form {
-            background-color: white;
+            background-color: #dfd4cd;
             padding: 20px;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         .habit-form input[type="text"] {
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border: 1px solid #ccc;
+            padding: 15px;
+            margin: 20px 0; 
+            border: 1px solid #5d8198;
             border-radius: 4px;
+            font-size: 16px;
+            resize: vertical;
+            min-height: 100px; 
+            box-sizing: border-box;
+            background-color: #dfd4cd;
         }
         .habit-form button {
             padding: 10px 20px;
@@ -59,14 +63,22 @@
             border-radius: 4px;
             cursor: pointer;
             margin-right: 10px;
+            font-size: 16px;
         }
         .habit-form button.delete {
-            background-color: #ff4d4d;
+            background-color: #5d8198;
             color: white;
         }
         .habit-form button.save {
-            background-color: #4CAF50;
+            background-color: #5d8198;
             color: white;
+            float: right; /* Кнопка "Save" праворуч */
+        }
+        /* Очищення float для контейнера кнопок */
+        .button-container::after {
+            content: "";
+            display: table;
+            clear: both;
         }
     </style>
 </head>
@@ -80,8 +92,10 @@
     <div class="container">
         <div class="habit-form">
             <input type="text" placeholder="Enter or edit habit text" />
-            <button class="delete">Delete Habit</button>
-            <button class="save">Save</button>
+            <div class="button-container">
+                <button class="delete">Delete Habit</button>
+                <button class="save">Save</button>
+            </div>
         </div>
     </div>
 </body>
