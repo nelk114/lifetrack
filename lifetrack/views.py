@@ -30,16 +30,16 @@ def lists(r):
 	return render(r,'lifetrack/lists.html')
 
 def addlist(r):
-	return HttpResponse(f'Stub. (addlist)')
+	return render(r,'lifetrack/addlist.html')
 
 def editlist(r):
-	return HttpResponse(f'Stub. (editlist)')
+	return render(r,'lifetrack/editlist.html')
 
 def addhabit(r):
-	return HttpResponse(f'Stub. (addhabit)')
+	return render(r,'lifetrack/addhabit.html')
 
 def edithabit(r):
-	return HttpResponse(f'Stub. (edithabit)')
+	return render(r,'lifetrack/edithabit.html')
 
 def log_out(r):
 	logout(r)
