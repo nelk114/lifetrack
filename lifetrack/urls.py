@@ -13,4 +13,5 @@ urlpatterns=[
 	path('addhabit/',views.addhabit,name='addhabit'),
 	path('edithabit/',views.edithabit,name='edithabit'),
 	path('logout/',views.log_out,name='logout'),
+	path('occur/',views.occur,name='occur'),
 ]
