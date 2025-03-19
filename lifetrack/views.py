@@ -27,7 +27,7 @@ def login(r):
 	return render(r,'lifetrack/login.html',context={'user_form':uf,'registered':reg,'fail':fail},status=status)
 
 def lists(r):
-	return HttpResponse(f'Stub. (lists)')
+	return render(r,'lifetrack/lists.html')
 
 def addlist(r):
 	return HttpResponse(f'Stub. (addlist)')

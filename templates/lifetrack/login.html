@@ -5,9 +5,11 @@
     </script>
 <style>
     body{
+        font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color:#f5e8de;
+        text-align: center;
+        background-color: #f5e8de;
     }
     ul {
         list-style-type: none;
@@ -29,9 +31,6 @@
     }
     li a:hover:not(.active) {
         background-color: #111;
-    }
-    .active {
-        background-color: #5d8198;
     }
     .login-container {
         background-color: #f5e8de;
@@ -79,7 +78,7 @@
 <body>
     <ul>
         <li><a href="/index/">Home</a></li>
-        <li style="float:right"><a class="active" href="/login/">Login</a></li>
+        <li style="float:right"><a href="/login/">Login</a></li>
     </ul>
     <div>
         {% if registered %}
