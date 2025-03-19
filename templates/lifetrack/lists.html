@@ -21,6 +21,27 @@
             text-decoration: none;
         }
 
+        ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+          overflow: hidden;
+          background-color: #5d8198;
+        }
+
+        li {
+          float: left;
+        }
+        
+        li a {
+          display: block;
+          color: white;
+          text-align: center;
+          padding: 25px 25px;
+          text-decoration: none;
+          font-size: 25px;
+        }
+
         .list {
             max-width: 400px;
             margin: auto;
@@ -80,11 +101,10 @@
 </head>
 
 <body>
-    <div class="navbar">
-        <a href="login.html">Sign out</a>
-        <a href="index.html">Main</a>
-        <a href="#">Link 3</a>
-    </div>
+    <ul>
+        <li><a href="/index/">Home</a></li>
+        <li style="float:right"><a href="/login/">Login</a></li>
+    </ul>
 
     <hr />
 
@@ -135,3 +155,4 @@
 </body>
 
 </html>
+
