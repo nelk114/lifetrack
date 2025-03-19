@@ -36,21 +36,29 @@
     .login-container {
         background-color: #f5e8de;
         padding: 60px;
-        border-radius: 10x;
+        border-radius: 10px;
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
+    .input-group {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+    }
     input {
-		display: block;
+        display: block;
         width: 200%;
+        max-width: 400px;
         padding: 20px;
         margin: 10px 0;
         border: none;
         background-color: #E6D9D0;
         border-radius: 5px;
+        box-sizing: border-box; 
     }
     button {
         background-color: #5c7382;
@@ -58,6 +66,7 @@
         border: none;
         padding: 10px 20px;
         cursor: pointer;
+        margin-top: 10px;
     }
     a {
         display: block;
@@ -83,24 +92,34 @@
         <p>Bad username or password</p>
         {% endif %}
         <div class="login-container">
-            <h2>Welcome Back</h2>
-	<form id="login_form" method="post" action="{% url 'lifetrack:login' %}">
-	{% csrf_token %}
-	<input type="hidden" name="form" value="login" />
-	<input type="text" name="username" value="" placeholder="Username" required maxlength="150" />
-	<input type="password" name="password" value="" placeholder="Password" required />
-	<button type="submit"> Log In </button>
-	<p><a href="#user_form" onclick="showReg()">Not registered?</a></p>
-	</form>
-	<form id="user_form" method="post"
-		action="{% url 'lifetrack:login' %}" enctype="multipart/form-data"
-		style="display:none;">
-	{% csrf_token %}
-	<input type="hidden" name="form" value="signup" />
-	{{user_form.as_p}}
-	<button type="submit">Register</button>
-    </form>
-    </div>
+            <h2>Welcome Back !</h2>
+            
+            <form id="login_form" method="post" action="{% url 'lifetrack:login' %}">
+                {% csrf_token %}
+                <input type="hidden" name="form" value="login" />
+
+                <div class="input-group">
+                    <input type="text" name="username" value="" placeholder="Username" required maxlength="150" />
+                    <input type="password" name="password" value="" placeholder="Password" required />
+                </div>
+
+                <button type="submit"> Log In </button>
+                <p><a href="#user_form" onclick="showReg()">Not registered?</a></p>
+            </form>
+            
+            <form id="user_form" method="post" action="{% url 'lifetrack:login' %}" enctype="multipart/form-data" style="display:none;">
+                {% csrf_token %}
+                <input type="hidden" name="form" value="signup" />
+                
+                <div class="input-group">
+                    <input type="text" name="username" placeholder="Username" required maxlength="150" />
+                    <input type="text" name="name" placeholder="Name" required />
+                    <input type="password" name="password" placeholder="Password" required />
+                </div>
+
+                <button type="submit">Register</button>
+            </form>
+        </div>
     </div>
 </body>
 </html>
