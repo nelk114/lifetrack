@@ -44,3 +44,8 @@ def edithabit(r):
 def log_out(r):
 	logout(r)
 	return redirect(reverse('lifetrack:index'))
+
+def occur(r):
+	if r.method=='POST':
+		return HttpResponse(f"Stub. (occur)\n{r.POST.get('dt')}\n{r.POST.get('hb')}\n{r.POST.get('ls')}")
+	return HttpResponse(f'Stub. (occur)',status=400)
