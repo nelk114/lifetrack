@@ -70,6 +70,7 @@ li a:hover:not(.active) {
 .habit-form button.delete {
    background-color: #5d8198;
    color: white;
+	float: left;
 }
 .habit-form button.save {
    background-color: #5d8198;
