@@ -1,0 +1,15 @@
+{% extends 'lifetrack/base.html' %}
+{% load staticfiles %}
+{% block title %}Add Habit{% endblock %}
+{% block body %}
+<div class="container">
+<form class="habit-form" method="post" action="{% url 'lifetrack:addhabit' %}">
+{% csrf_token %}
+<input type="hidden" name="ls" value="{{ls}}" />
+<input type="text" name="name" placeholder="Habit name" />
+<div class="button-container">
+<button class="save">Save</button>
+</div>
+</form>
+</div>
+{% endblock %}
