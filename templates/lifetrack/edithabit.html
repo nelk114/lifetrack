@@ -3,12 +3,14 @@
 {% block title %}Edit Habit{% endblock %}
 {% block body %}
     <div class="container">
-        <div class="habit-form">
-            <input type="text" placeholder="Enter or edit habit text" />
+        <form class="habit-form" method="post" action="{% url 'lifetrack:edithabit' %}">
+				{% csrf_token %}
+				<input type="hidden" name="hb" value="{{hb}}" />
+            <input type="text" name="name" placeholder="Enter or edit habit text" />
             <div class="button-container">
-                <button class="delete">Delete Habit</button>
-                <button class="save">Save</button>
+                <button class="delete" name="form" type="submit" value="delete">Delete Habit</button>
+                <button class="save" name="form" type="submit" value="save">Save</button>
             </div>
-        </div>
+        </form>
     </div>
 {% endblock %}
