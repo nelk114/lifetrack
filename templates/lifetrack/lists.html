@@ -2,7 +2,10 @@
 {% load staticfiles %}
 {% block title %}Habit Tracker{% endblock %}
 {% block body %}
-       <a href="addlist.html" class="btn" >Add List</a>
+		<form method="post" action="{% url 'lifetrack:addlist' %}">
+			{% csrf_token %}
+			<button type="submit">Add List</button>
+		</form>
 		<div class="ui" oninput="tickBox(event)">
        <div class="list" id="List 1">
 			<h3>List 1</h3>
@@ -42,8 +45,11 @@
                 <div class="day" id="2025-03-23"><input type="checkbox"></div>
             </div>
         </div>
-
-        <a href="editlist.html" class="btn">Edit</a>
+		<form method="post" action="{% url 'lifetrack:editlist' %}">
+			{% csrf_token %}
+			<input type="hidden" name="ls" value="List 1">
+			<button type="submit">Edit</button>
+		</form>
     </div></div>
 	<div id="csrf">{% csrf_token %}</div>
 {% endblock %}
