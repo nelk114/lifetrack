@@ -1,0 +1,9 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" href="{% static 'style.css' %}"><script src="{% static 'js.js' %}"></script>
+</head><body>
+<ul><li><a href="/index/">Home</a></li><li><a href="/lists/">Lists</a></li><li style="float:right"><a href="/login/">Login</a></li></ul>
+{% block body %}{% endblock %}
+</body></html>
