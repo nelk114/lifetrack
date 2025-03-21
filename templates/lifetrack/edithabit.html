@@ -1,86 +1,11 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Habit</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 0;
-            background-color: #f3ebe2;
-        }
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-          background-color: #5d8198;
-        }
-        
-        li {
-          float: left;
-        }
-        
-        li a {
-          display: block;
-          color: white;
-          text-align: center;
-          padding: 25px 25px;
-          text-decoration: none;
-          font-size: 25px;
-        }
-        
-        li a:hover:not(.active) {
-          background-color: #111;
-        }
-        .container {
-            padding: 20px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-        .habit-form {
-            background-color: #dfd4cd;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .habit-form input[type="text"] {
-            width: 100%;
-            padding: 15px;
-            margin: 20px 0; 
-            border: 1px solid #5d8198;
-            border-radius: 4px;
-            font-size: 16px;
-            resize: vertical;
-            min-height: 100px; 
-            box-sizing: border-box;
-            background-color: #dfd4cd;
-        }
-        .habit-form button {
-            padding: 10px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            margin-right: 10px;
-            font-size: 16px;
-        }
-        .habit-form button.delete {
-            background-color: #5d8198;
-            color: white;
-        }
-        .habit-form button.save {
-            background-color: #5d8198;
-            color: white;
-            float: right; /* Кнопка "Save" праворуч */
-        }
-        /* Очищення float для контейнера кнопок */
-        .button-container::after {
-            content: "";
-            display: table;
-            clear: both;
-        }
-    </style>
+	<link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <ul>

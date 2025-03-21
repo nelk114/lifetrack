@@ -1,83 +1,10 @@
 <!DOCTYPE html>
+{% load staticfiles %}
 <head>
     <script>
         function showReg(){document.getElementById("user_form").style.display="block";}
     </script>
-<style>
-    body{
-        font-family: Arial, sans-serif;
-        margin: 0;
-        padding: 0;
-        text-align: center;
-        background-color: #f5e8de;
-    }
-    ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-          overflow: hidden;
-          background-color: #5d8198;
-    }
-        
-    li {
-          float: left;
-    }
-        
-    li a {
-          display: block;
-          color: white;
-          text-align: center;
-          padding: 25px 25px;
-          text-decoration: none;
-          font-size: 25px;
-          margin: 0;
-    }
-        
-    li a:hover:not(.active) {
-          background-color: #111;
-    }
-    .login-container {
-        background-color: #f5e8de;
-        padding: 60px;
-        border-radius: 10px;
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .input-group {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-    }
-    input {
-        display: block;
-        width: 200%;
-        max-width: 400px;
-        padding: 20px;
-        margin: 10px 0;
-        border: none;
-        background-color: #E6D9D0;
-        border-radius: 5px;
-        box-sizing: border-box; 
-    }
-    button {
-        background-color: #5c7382;
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-    a {
-        display: block;
-        margin-top: 10px;
-        color: #678;
-        text-decoration: none;
-    }
-</style>
+	<link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <ul>
