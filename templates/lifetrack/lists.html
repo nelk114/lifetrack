@@ -1,23 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'lifetrack/base.html' %}
 {% load staticfiles %}
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habit Tracker</title>
-	<link rel="stylesheet" href="{% static 'style.css' %}">
-	<script src="{% static 'js.js' %}"></script>
-</head>
-
-<body>
-    <ul>
-        <li><a href="/index/">Home</a></li>
-        <li style="float:right"><a href="/login/">Login</a></li>
-    </ul>
-
-    <hr />
-
-    
+{% block title %}Welcome Page{% endblock %}
+{% block body %}
        <a href="addlist.html" class="btn" >Add List</a>
 		<div class="ui" oninput="tickBox(event)">
        <div class="list" id="List 1">
@@ -62,7 +46,5 @@
         <a href="editlist.html" class="btn">Edit</a>
     </div></div>
 	<div id="csrf">{% csrf_token %}</div>
-</body>
-
-</html>
+{% endblock %}
 

@@ -1,19 +1,7 @@
-<!DOCTYPE html>
+{% extends 'lifetrack/base.html' %}
 {% load staticfiles %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit Habit</title>
-	<link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-    <ul>
-        <li><a href="/index/">Home</a></li>
-        <li><a href="/lists/">Lists</a></li>
-        <li style="float:right"><a href="/login/">Login</a></li>
-    </ul>
-
+{% block title %}Welcome Page{% endblock %}
+{% block body %}
     <div class="container">
         <div class="habit-form">
             <input type="text" placeholder="Enter or edit habit text" />
@@ -23,5 +11,4 @@
             </div>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}

@@ -1,14 +1,7 @@
-<!DOCTYPE html>
+{% extends 'lifetrack/base.html' %}
 {% load staticfiles %}
-<head>
-	<script src="{% static 'js.js' %}"></script>
-	<link rel="stylesheet" href="{% static 'style.css' %}">
-</head>
-<body>
-    <ul>
-        <li><a href="/index/">Home</a></li>
-        <li style="float:right"><a href="/login/">Login</a></li>
-    </ul>
+{% block title %}Log In{% endblock %}
+{% block body %}
     <div>
         {% if registered %}
         <p>Thanks for registering!</p>
@@ -49,5 +42,4 @@
             </form>
         </div>
     </div>
-</body>
-</html>
+{% endblock %}
