@@ -1,7 +1,18 @@
 body {
+   font-family: Arial, sans-serif;
    margin: 0;
    padding: 0;
+   /*padding: 20px;*/
+   text-align: center;
    background-color: #f3ebe2;
+   /*background-color: #dfd4cd;*/
+}
+body{
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  background-color: #f5e8de;
 }
 ul {
  list-style-type: none;
@@ -20,6 +31,7 @@ li a {
  padding: 25px 25px;
  text-decoration: none;
  font-size: 25px;
+ margin: 0;
 }
 li a:hover:not(.active) {
  background-color: #111;
@@ -70,35 +82,10 @@ li a:hover:not(.active) {
    display: table;
    clear: both;
 }
-body {
-   font-family: sans-serif;
-   margin: 0;
-   padding: 20px;
-   text-align: center;
-   background-color: #dfd4cd;
-}
 .navbar a {
    margin: 0 10px;
    color: #333;
    text-decoration: none;
-}
-ul {
- list-style-type: none;
- margin: 0;
- padding: 0;
- overflow: hidden;
- background-color: #5d8198;
-}
-li {
- float: left;
-}
-li a {
- display: block;
- color: white;
- text-align: center;
- padding: 25px 25px;
- text-decoration: none;
- font-size: 25px;
 }
 .list {
    max-width: 400px;
@@ -148,36 +135,7 @@ li a {
    width: 18px;
    height: 18px;
 }
-body{
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  background-color: #f5e8de;
-}
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #5d8198;
-}
-li {
-    float: left;
-}
-li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 25px 25px;
-    text-decoration: none;
-    font-size: 25px;
-    margin: 0;
-}
   
-li a:hover:not(.active) {
-    background-color: #111;
-}
 .login-container {
   background-color: #f5e8de;
   padding: 60px;
@@ -218,13 +176,6 @@ a {
   margin-top: 10px;
   color: #678;
   text-decoration: none;
-}
-body {
-   font-family: Arial, sans-serif;
-   margin: 0;
-   padding: 0;
-   text-align: center;
-   background-color: #f3ebe2;
 }
 .header {
    padding: 15px;
@@ -291,25 +242,3 @@ body {
    font-size: 18px;
    color: #000000;
 }
-ul {
- list-style-type: none;
- margin: 0;
- padding: 0;
- overflow: hidden;
- background-color: #5d8198;
-}
-li {
- float: left;
-}
-li a {
- display: block;
- color: white;
- text-align: center;
- padding: 25px 25px;
- text-decoration: none;
- font-size: 25px;
-}
-li a:hover:not(.active) {
- background-color: #111;
-}
-
