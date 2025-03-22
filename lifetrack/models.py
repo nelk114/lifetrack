@@ -20,4 +20,4 @@ class Occurence(models.Model):
 	habit=models.ForeignKey(Habit,on_delete=models.CASCADE)
 	date=models.DateField(default=date.today)
 	def __str__(σ):
-		return f'{s.habit} @ {σ.date}'
+		return f'{σ.habit} @ {σ.date}'
