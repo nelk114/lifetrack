@@ -36,13 +36,13 @@ def addlist(r):
 	if r.method=='POST' and r.POST.get('form'):
 		ls=ListForm(r.POST)
 		if ls.is_valid():
+			att=ls.cleaned_data['name']
 			try:
-				HabitList.objects.get(user=r.user,name=ls.cleaned_data['name'])
-				att=ls.cleaned_data['name']
+				HabitList.objects.get(user=r.user,name=att)
 			except HabitList.DoesNotExist:
 				l=ls.save(commit=False);l.user=r.user;l.save()
 				return redirect(reverse('lifetrack:lists'))
-		else:print('qweqwe');print(ls.errors)
+		else:print(ls.errors)
 	return render(r,'lifetrack/addlist.html',context={'attempt':att})
 
 def editlist(r):
