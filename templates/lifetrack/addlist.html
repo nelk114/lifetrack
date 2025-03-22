@@ -8,7 +8,6 @@
 <p>You already have a list named {{attempt}}</p>
 {% endif %}
 {% csrf_token %}
-<input type="hidden" name="form" value="add" />
 <input type="text" name="name" placeholder="List name" />
 <select name="freq">
 	<option value="daily">Daily</option>
@@ -16,7 +15,7 @@
 	<option value="monthly">Monthly</option>
 </select>
 <div class="button-container">
-<button class="save">Save</button>
+<button class="save" name="form" value="add">Save</button>
 </div>
 </form>
 </div>
