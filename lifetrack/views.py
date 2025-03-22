@@ -65,7 +65,7 @@ def editlist(r):
 		elif f=='delete':
 			l.delete();return redirect(reverse('lifetrack:lists'))
 		elif f=='addhabit':
-			l.delete();return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:addhabit')))
+			return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:addhabit')))
 		else:freq=l.freq
 	else:freq=l.freq
 	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq,'f':F})
