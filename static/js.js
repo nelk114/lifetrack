@@ -6,7 +6,7 @@ function tickBox(e){
 	//alert(post);
 	var xhr=new XMLHttpRequest();
 	xhr.onreadystatechange=function(){if(this.readyState==4&&this.status==200)alert(xhr.responseText)};
-	xhr.open("POST",{% url 'lifetrack:occur' %});
+	xhr.open("POST","/occur/");
 	xhr.setRequestHeader("X-CSRFToken",csrf);
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
 	xhr.send(post);
