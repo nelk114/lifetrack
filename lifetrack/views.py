@@ -5,6 +5,7 @@ from django.http.response import HttpResponseRedirectBase as RedirBase
 from django.contrib.auth import authenticate as auth,login as li,logout
 from lifetrack.models import *
 from lifetrack.forms import *
+from datetime import date
 
 F=['daily','weekly','monthly']
 class HttpResponsePassthruRedirect(RedirBase):
@@ -71,7 +72,22 @@ def editlist(r):
 	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq,'f':F})
 
 def addhabit(r):
-	return render(r,'lifetrack/addhabit.html')
+	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
+	att=None
+	L=r.POST.get('ls')
+	try:l=HabitList.objects.get(user=r.user,name=L)
+	except HabitList.DoesNotExist:return HttpResponse('You\'nna try to add a habit to a a nonexistent list. Really?. I don\'t think so.',status=404)
+	if r.POST.get('form')=='add':
+		hb=HabitForm(r.POST)
+		if hb.is_valid():
+			att=hb.cleaned_data['name']
+			try:
+				Habit.objects.get(name=att,list=l)
+			except Habit.DoesNotExist:
+				h=hb.save(commit=False);h.list=l;h.save()
+				return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:editlist')))
+		else:print(hb.errors)
+	return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat()})
 
 def edithabit(r):
 	return render(r,'lifetrack/edithabit.html')

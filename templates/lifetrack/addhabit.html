@@ -3,12 +3,17 @@
 {% block title %}Add Habit{% endblock %}
 {% block body %}
 <div class="container">
+<h3>{{ls}}</h3>
 <form class="habit-form" method="post" action="{% url 'lifetrack:addhabit' %}">
+{% if attempt %}
+<p>You already have a habit named {{attempt}} in the list {{ls}}</p>
+{% endif %}
 {% csrf_token %}
 <input type="hidden" name="ls" value="{{ls}}" />
+<input type="hidden" name="sdate" value="{{date}}" />
 <input type="text" name="name" placeholder="Habit name" />
 <div class="button-container">
-<button class="save">Save</button>
+<button class="save" name="form" value="add">Save</button>
 </div>
 </form>
 </div>
