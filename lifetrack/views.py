@@ -2,7 +2,8 @@ from django.shortcuts import render,redirect
 from django.urls import reverse
 from django.http import HttpResponse
 from django.contrib.auth import authenticate as auth,login as li,logout
-from lifetrack.forms import UserForm
+from lifetrack.models import *
+from lifetrack.forms import *
 
 def index(r):
 	return render(r,'lifetrack/index.html')
@@ -30,7 +31,22 @@ def lists(r):
 	return render(r,'lifetrack/lists.html')
 
 def addlist(r):
-	return render(r,'lifetrack/addlist.html')
+	att=None
+	if r.method=='POST' and r.POST.get('form'):
+		ls=ListForm(r.POST)
+		if ls.is_valid():
+			print(123123)
+			print(ls.cleaned_data)
+			try:
+				HabitList.objects.get(user=r.user,name=ls.cleaned_data['name'])
+				print(456);att=ls.cleaned_data['name']
+			except HabitList.DoesNotExist:
+				print(1234)
+				l=ls.save(commit=False);l.user=r.user;l.save()
+				return redirect(reverse('lifetrack:lists'))
+		else:print('qweqwe');print(ls.errors)
+	print(att)
+	return render(r,'lifetrack/addlist.html',context={'attempt':att})
 
 def editlist(r):
 	return render(r,'lifetrack/editlist.html')
