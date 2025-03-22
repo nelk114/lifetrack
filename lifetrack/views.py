@@ -52,12 +52,16 @@ def editlist(r):
 	L=r.POST.get('ls')
 	try:l=HabitList.objects.get(user=r.user,name=L)
 	except HabitList.DoesNotExist:return HttpResponse('Somehow you\'ve supplied a nonexistent list. Not meant to be able to happen',status=400)
-	if r.POST.get('form'):
-		ls=ListForm(r.POST)
-		if ls.is_valid():
-			l.name,l.freq=ls.cleaned_data['name'],ls.cleaned_data['freq'];l.save()
-			return redirect(reverse('lifetrack:lists'))
-		else:print(ls.errors)
+	if f:=r.POST.get('form'):
+		if f=='save':
+			ls=ListForm(r.POST)
+			if ls.is_valid():
+				l.name,l.freq=ls.cleaned_data['name'],ls.cleaned_data['freq'];l.save()
+				return redirect(reverse('lifetrack:lists'))
+			else:print(ls.errors)
+		elif f=='delete':
+			l.delete();return redirect(reverse('lifetrack:lists'))
+		else:freq=l.freq
 	else:freq=l.freq
 	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq,'f':F})
 
