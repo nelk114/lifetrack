@@ -28,7 +28,8 @@ def login(r):
 	return render(r,'lifetrack/login.html',context={'user_form':uf,'registered':reg,'fail':fail},status=status)
 
 def lists(r):
-	return render(r,'lifetrack/lists.html')
+	ls=HabitList.objects.order_by('name')
+	return render(r,'lifetrack/lists.html',context={'ls':ls})
 
 def addlist(r):
 	att=None

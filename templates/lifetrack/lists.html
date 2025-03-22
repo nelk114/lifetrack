@@ -7,8 +7,9 @@
 			<button type="submit">Add List</button>
 		</form>
 		<div class="ui" oninput="tickBox(event)">
-       <div class="list" id="List 1">
-			<h3>List 1</h3>
+{% for l in ls %}
+       <div class="list" id="{{l}}">
+			<h3>{{l}}</h3>
 
         <div class="days">
             <div class="day">Mon</div>
@@ -47,10 +48,12 @@
         </div>
 		<form method="post" action="{% url 'lifetrack:editlist' %}">
 			{% csrf_token %}
-			<input type="hidden" name="ls" value="List 1">
+			<input type="hidden" name="ls" value="{{l}}">
 			<button type="submit">Edit</button>
 		</form>
-    </div></div>
+    </div>
+{% endfor %}
+</div>
 	<div id="csrf">{% csrf_token %}</div>
 {% endblock %}
 
