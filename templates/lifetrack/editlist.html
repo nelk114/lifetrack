@@ -1,12 +1,15 @@
 {% extends 'lifetrack/base.html' %}
 {% load staticfiles %}
-{% block title %}Edit List{% endblock %}
+{% block title %}Edit List: {{ls}}{% endblock %}
 {% block body %}
 <div class="container">
-<form class="habit-form" method="post" action="{% url 'lifetrack:addlist' %}">
+<h3>{{ls}}</h3>
+<form class="habit-form" method="post" action="{% url 'lifetrack:editlist' %}">
 {% csrf_token %}
+<input type="hidden" name="form" value="ed" />
 <input type="hidden" name="ls" value="{{ls}}" />
-<input type="text" name="name" placeholder="List name" />
+<input type="text" name="name" placeholder="List name" value="{{ls}}" />
+{{freq}}
 <select name="freq">
 	<option value="daily">Daily</option>
 	<option value="weekly">Weekly</option>

@@ -46,7 +46,18 @@ def addlist(r):
 	return render(r,'lifetrack/addlist.html',context={'attempt':att})
 
 def editlist(r):
-	return render(r,'lifetrack/editlist.html',context={'ls':ls})
+	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
+	L=r.POST.get('ls')
+	try:l=HabitList.objects.get(user=r.user,name=L)
+	except HabitList.DoesNotExist:return HttpResponse('Somehow you\'ve supplied a nonexistent list. Not meant to be able to happen',status=400)
+	if r.POST.get('form'):
+		ls=ListForm(r.POST)
+		if ls.is_valid():
+			l.name,l.freq=ls.cleaned_data['name'],ls.cleaned_data['freq'];l.save()
+			return redirect(reverse('lifetrack:lists'))
+		else:print(ls.errors)
+	else:freq=l.freq
+	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq})
 
 def addhabit(r):
 	return render(r,'lifetrack/addhabit.html')
