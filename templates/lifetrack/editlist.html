@@ -9,11 +9,10 @@
 <input type="hidden" name="form" value="ed" />
 <input type="hidden" name="ls" value="{{ls}}" />
 <input type="text" name="name" placeholder="List name" value="{{ls}}" />
-{{freq}}
 <select name="freq">
-	<option value="daily">Daily</option>
-	<option value="weekly">Weekly</option>
-	<option value="monthly">Monthly</option>
+{% for e in f %}
+	<option value="{{e}}"{% if e == freq %} selected{% endif %}>{{e.title}}</option>
+{% endfor %}
 </select>
 <div class="button-container">
 <button class="save">Save</button>

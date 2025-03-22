@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate as auth,login as li,logout
 from lifetrack.models import *
 from lifetrack.forms import *
 
+F=['daily','weekly','monthly']
+
 def index(r):
 	return render(r,'lifetrack/index.html')
 
@@ -43,7 +45,7 @@ def addlist(r):
 				l=ls.save(commit=False);l.user=r.user;l.save()
 				return redirect(reverse('lifetrack:lists'))
 		else:print(ls.errors)
-	return render(r,'lifetrack/addlist.html',context={'attempt':att})
+	return render(r,'lifetrack/addlist.html',context={'attempt':att,'f':F})
 
 def editlist(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
@@ -57,7 +59,7 @@ def editlist(r):
 			return redirect(reverse('lifetrack:lists'))
 		else:print(ls.errors)
 	else:freq=l.freq
-	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq})
+	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq,'f':F})
 
 def addhabit(r):
 	return render(r,'lifetrack/addhabit.html')
