@@ -95,7 +95,24 @@ def addhabit(r):
 	return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat()})
 
 def edithabit(r):
-	return render(r,'lifetrack/edithabit.html')
+	if r.method!='POST':return HttpResponse('Begone URL Fishers getting here w/o POST; idk what habit to edit here',status=400)
+	L,H=r.POST.get('ls'),r.POST.get('hb')
+	try:l=HabitList.objects.get(user=r.user,name=L)
+	except HabitList.DoesNotExist:return HttpResponse('You\'nna try to change a habit in a nonexistent list. Yeah sure lol.',status=404)
+	try:h=Habit.objects.get(name=H,list=l)
+	except Habit.DoesNotExist:return HttpResponse('You\'nna try to change a nonexistent habit. Craaazy.',status=404)
+	if f:=r.POST.get('form'):
+		if f=='save':
+			hb=HabitForm(r.POST)
+			if hb.is_valid():
+				h.name,h.sdate=hb.cleaned_data['name'],hb.cleaned_data['sdate'];h.save()
+				return redirect(reverse('lifetrack:lists'))
+			else:print(hb.errors)
+		elif f=='delete':
+			h.delete();return redirect(reverse('lifetrack:lists'))
+		else:freq=l.freq
+	else:freq=l.freq
+	return render(r,'lifetrack/edithabit.html',context={'hb':h,'ls':l})
 
 def log_out(r):
 	logout(r)

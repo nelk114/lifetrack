@@ -3,10 +3,13 @@
 {% block title %}Edit Habit{% endblock %}
 {% block body %}
     <div class="container">
+	<h3>{{hb}}</h3>
         <form class="habit-form" method="post" action="{% url 'lifetrack:edithabit' %}">
 				{% csrf_token %}
+				<input type="hidden" name="ls" value="{{ls}}" />
 				<input type="hidden" name="hb" value="{{hb}}" />
-            <input type="text" name="name" placeholder="Enter or edit habit text" />
+            <input type="text" name="name" placeholder="Enter or edit habit text" value="{{hb}}">
+<label>Start date: <input type="date" name="sdate" value="{{hb.sdate.isoformat}}"></label>
             <div class="button-container">
                 <button class="delete" name="form" type="submit" value="delete">Delete Habit</button>
                 <button class="save" name="form" type="submit" value="save">Save</button>
