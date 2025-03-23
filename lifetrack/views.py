@@ -38,7 +38,7 @@ def lists(r):
 	return render(r,'lifetrack/lists.html',context={'ls':ls})
 
 def addlist(r):
-	att,freq=None,None
+	att,freq='',''
 	if r.method=='POST' and r.POST.get('form'):
 		freq=r.POST.get('freq')
 		ls=ListForm(r.POST)
