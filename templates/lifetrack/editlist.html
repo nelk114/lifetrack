@@ -7,12 +7,9 @@
 <form class="habit-form" method="post" action="{% url 'lifetrack:editlist' %}">
 {% csrf_token %}
 <input type="hidden" name="ls" value="{{ls}}" />
+<input type="hidden" name="freq" value="{{freq}}" />
 <input type="text" name="name" placeholder="List name" value="{{ls}}" />
-<select name="freq">
-{% for e in f %}
-	<option value="{{e}}"{% if e == freq %} selected{% endif %}>{{e.title}}</option>
-{% endfor %}
-</select>
+<p>{{freq.title}} habits</p>
 <div class="button-container">
 <button class="addhabit" name="form" value="addhabit">Add Habit</button>
 <button class="delete" name="form" type="submit" value="delete">Delete List</button>

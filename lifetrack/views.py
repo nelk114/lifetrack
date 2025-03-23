@@ -69,7 +69,7 @@ def editlist(r):
 			return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:addhabit')))
 		else:freq=l.freq
 	else:freq=l.freq
-	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq,'f':F})
+	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq})
 
 def addhabit(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
