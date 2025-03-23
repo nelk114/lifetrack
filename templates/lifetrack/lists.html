@@ -8,8 +8,8 @@
 		</form>
 		<div class="ui" oninput="tickBox(event)">
 {% for l in ls %}
-       <div class="list" id="{{l}}">
-			<h3>{{l}}</h3>
+       <div class="list" id="{{l.l}}">
+			<h3>{{l.l}}</h3>
 
         <div class="days">
             <div class="day">Mon</div>
@@ -20,9 +20,9 @@
             <div class="day">Sat</div>
             <div class="day">Sun</div>
         </div>
-
-        <div class="habit-row" id="Habit 1">
-            <p class="habit-label">Habit 1</p>
+{% for h in l.h %}
+        <div class="habit-row" id="{{h}}">
+            <p class="habit-label">{{h}}</p>
             <div class="tracker">
                 <div class="day" id="2025-03-17"><input type="checkbox"></div>
                 <div class="day" id="2025-03-18"><input type="checkbox"></div>
@@ -33,22 +33,10 @@
                 <div class="day" id="2025-03-23"><input type="checkbox"></div>
             </div>
         </div>
-
-        <div class="habit-row" id="Habit 2">
-            <p class="habit-label">Habit 2</p>
-            <div class="tracker">
-                <div class="day" id="2025-03-17"><input type="checkbox"></div>
-                <div class="day" id="2025-03-18"><input type="checkbox"></div>
-                <div class="day" id="2025-03-19"><input type="checkbox"></div>
-                <div class="day" id="2025-03-20"><input type="checkbox"></div>
-                <div class="day" id="2025-03-21"><input type="checkbox"></div>
-                <div class="day" id="2025-03-22"><input type="checkbox"></div>
-                <div class="day" id="2025-03-23"><input type="checkbox"></div>
-            </div>
-        </div>
+{% endfor %}
 		<form method="post" action="{% url 'lifetrack:editlist' %}">
 			{% csrf_token %}
-			<input type="hidden" name="ls" value="{{l}}">
+			<input type="hidden" name="ls" value="{{l.l}}">
 			<button type="submit">Edit</button>
 		</form>
     </div>

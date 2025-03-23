@@ -35,7 +35,8 @@ def login(r):
 
 def lists(r):
 	ls=HabitList.objects.filter(user=r.user).order_by('name')
-	return render(r,'lifetrack/lists.html',context={'ls':ls})
+	hb={l:Habit.objects.filter(list=l).order_by('name')for l in ls}
+	return render(r,'lifetrack/lists.html',context={'ls':[{'l':l,'h':hb[l]}for l in ls]})
 
 def addlist(r):
 	att,freq='',''
