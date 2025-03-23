@@ -38,8 +38,9 @@ def lists(r):
 	return render(r,'lifetrack/lists.html',context={'ls':ls})
 
 def addlist(r):
-	att=None
+	att,freq=None,None
 	if r.method=='POST' and r.POST.get('form'):
+		freq=r.POST.get('freq')
 		ls=ListForm(r.POST)
 		if ls.is_valid():
 			att=ls.cleaned_data['name']
@@ -49,7 +50,7 @@ def addlist(r):
 				l=ls.save(commit=False);l.user=r.user;l.save()
 				return redirect(reverse('lifetrack:lists'))
 		else:print(ls.errors)
-	return render(r,'lifetrack/addlist.html',context={'attempt':att,'f':F})
+	return render(r,'lifetrack/addlist.html',context={'attempt':att,'freq':freq,'f':F})
 
 def editlist(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)

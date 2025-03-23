@@ -8,11 +8,11 @@
 <p>You already have a list named {{attempt}}</p>
 {% endif %}
 {% csrf_token %}
-<input type="text" name="name" placeholder="List name" />
+<input type="text" name="name" placeholder="List name" value="{{attempt}}">
 <select name="freq">
-	<option value="daily">Daily</option>
-	<option value="weekly">Weekly</option>
-	<option value="monthly">Monthly</option>
+{% for e in f %}
+	<option value="{{e}}"{% if e == freq %} selected{% endif %}>{{e.title}}</option>
+{% endfor %}
 </select>
 <div class="button-container">
 <button class="save" name="form" value="add">Save</button>
