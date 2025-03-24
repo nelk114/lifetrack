@@ -120,15 +120,17 @@ def log_out(r):
 
 def occur(r):
 	if r.method!='POST':return HttpResponse(f'Stub. (occur)',status=400)
+	[print(o,r.POST.get(o))for o in r.POST]
 	s={'y':True,'n':False}[r.POST.get('set')]
 	dt=date.fromisoformat(r.POST.get('dt'))
 	try:hb=Habit.objects.get(list=HabitList.objects.get(user=r.user,name=r.POST.get('ls')),name=r.POST.get('hb'))
 	except(HabitList.DoesNotExist,Habit.DoesNotExist):print(1235);set=not s
 	try:
-		if not s:oc=Occurence.objects.get(date=dt,habit=hb);oc.delete();set=False;print('del\t',oc)
-		else:set=True
+		oc=Occurence.objects.get(date=dt,habit=hb);
+		if not s:oc.delete();set=False;print('del\t',oc)
+		else:set=True;print('ext\t',oc)
 	except Occurence.DoesNotExist:
 		if s:oc=Occurence(date=dt,habit=hb);oc.save();set=True;print('reg\t',oc)
-		else:set=False
+		else:set=False;print('non\t',oc)
 	[print(o)for o in Occurence.objects.filter(habit=hb)]
 	return HttpResponse(f"{['n','y'][set]}")
