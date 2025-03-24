@@ -1,6 +1,6 @@
 function showReg(){document.getElementById("user_form").style.display="block";}
 function tickBox(e){
-	cb=e.target;dt=cb.parentElement.id;hb=cb.parentElement.parentElement.parentElement.id;ls=cb.parentElement.parentElement.parentElement.parentElement.id;
+	var cb=e.target;dt=cb.parentElement.id;var hb=cb.parentElement.parentElement.parentElement.id;var ls=cb.parentElement.parentElement.parentElement.parentElement.id;
 	csrf=document.getElementById("csrf").firstChild.value;
 	post="dt="+encodeURIComponent(dt)+"&hb="+encodeURIComponent(hb)+"&ls="+encodeURIComponent(ls);
 	//alert(post);
