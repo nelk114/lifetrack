@@ -5,7 +5,7 @@ function tickBox(e){
 	var post="dt="+encodeURIComponent(dt)+"&hb="+encodeURIComponent(hb)+"&ls="+encodeURIComponent(ls)+"&set="+(cb.checked?"y":"n");
 	cb.disabled=true
 	var xhr=new XMLHttpRequest();
-	xhr.onreadystatechange=function(){if(this.readyState==4){cb.disabled=false;if(this.status==200)alert(xhr.responseText)}};
+	xhr.onreadystatechange=function(){if(this.readyState==4){cb.disabled=false;if(this.status==200)cb.checked={"y":true,"n":false}[xhr.responseText]}};
 	xhr.open("POST","/occur/");
 	xhr.setRequestHeader("X-CSRFToken",csrf);
 	xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
