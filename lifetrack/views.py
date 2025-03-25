@@ -14,6 +14,7 @@ RW=['Last Week','This Week']
 MÞ=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 RM=['Last Month','This Month']
 adj={'daily':lambda x:x,'weekly':lambda x:x-Δt(days=x.weekday()),'monthly':lambda x:x.replace(day=1)}
+maxnr={'daily':7,'weekly':8,'monthly':10}
 class HttpResponsePassthruRedirect(RedirBase):
     status_code=307
 
@@ -41,11 +42,11 @@ def login(r):
 
 def lists(r):
 	dt=date.today()
-	dy=[dt-Δt(days=i)for i in range(7)][::-1]
+	dy=[dt-Δt(days=i)for i in range(maxnr['daily'])][::-1]
 	dyn=[WD[d.weekday()]for d in dy][:-len(RD)]+RD
-	wt=adj['weekly'](dt);wk=[wt-Δt(days=i*7)for i in range(8)][::-1];wkn=[f'W/b {d.day}/{d.month}'for d in wk][:-len(RW)]+RW
+	wt=adj['weekly'](dt);wk=[wt-Δt(days=i*7)for i in range(maxnr['weekly'])][::-1];wkn=[f'W/b {d.day}/{d.month}'for d in wk][:-len(RW)]+RW
 	mt=adj['monthly'](dt);mþ=[mt];
-	for i in range(12-1):mþ.append(mt:=(mt-Δt(days=1)).replace(day=1))
+	for i in range(maxnr['monthly']-1):mþ.append(mt:=(mt-Δt(days=1)).replace(day=1))
 	mþ=mþ[::-1];mþn=[MÞ[d.month-1]for d in mþ][:-len(RM)]+RM
 	print(dt,dy,dyn,wk,wkn,mþ,mþn)
 	lss=[]
