@@ -36,7 +36,7 @@ def login(r):
 			if uf.is_valid():
 				l=uf.save();l.set_password(l.password);l.save()
 				reg=True
-			else:print(uf.errors,pf.errors)
+			else:print(uf.errors)
 		else:print('Unsupported form submission')
 	return render(r,'lifetrack/login.html',context={'user_form':uf,'registered':reg,'fail':fail},status=status)
 
