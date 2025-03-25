@@ -12,25 +12,17 @@
 			<h3>{{l.l}}</h3>
 
         <div class="days">
-            <div class="day">Mon</div>
-            <div class="day">Tue</div>
-            <div class="day">Wed</div>
-            <div class="day">Thu</div>
-            <div class="day">Fri</div>
-            <div class="day">Sat</div>
-            <div class="day">Sun</div>
+{% for d in l.d %}
+            <div class="day">{{d}}</div>
+{% endfor %}
         </div>
 {% for h in l.h %}
-        <div class="habit-row" id="{{h}}">
-            <p class="habit-label">{{h}}</p>
+        <div class="habit-row" id="{{h.h}}">
+            <p class="habit-label">{{h.h}}</p>
             <div class="tracker">
-                <div class="day" id="2025-03-17"><input type="checkbox"></div>
-                <div class="day" id="2025-03-18"><input type="checkbox"></div>
-                <div class="day" id="2025-03-19"><input type="checkbox"></div>
-                <div class="day" id="2025-03-20"><input type="checkbox"></div>
-                <div class="day" id="2025-03-21"><input type="checkbox"></div>
-                <div class="day" id="2025-03-22"><input type="checkbox"></div>
-                <div class="day" id="2025-03-23"><input type="checkbox"></div>
+{% for o in h.o %}
+                <div class="day" id="{{o.0}}"><input type="checkbox"{% if o.1 %} checked{% endif %}></div>
+{% endfor %}
             </div>
         </div>
 {% endfor %}

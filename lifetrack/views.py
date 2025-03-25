@@ -5,9 +5,11 @@ from django.http.response import HttpResponseRedirectBase as RedirBase
 from django.contrib.auth import authenticate as auth,login as li,logout
 from lifetrack.models import *
 from lifetrack.forms import *
-from datetime import date
+from datetime import date,timedelta as Δt
 
 F=['daily','weekly','monthly']
+WD=['Mon','Tue','Wed','Thu','Fri','Sat','Sun']
+RD=['Yesterday','Today']
 class HttpResponsePassthruRedirect(RedirBase):
     status_code=307
 
@@ -36,7 +38,12 @@ def login(r):
 def lists(r):
 	ls=HabitList.objects.filter(user=r.user).order_by('name')
 	hb={l:Habit.objects.filter(list=l).order_by('name')for l in ls}
-	return render(r,'lifetrack/lists.html',context={'ls':[{'l':l,'h':hb[l]}for l in ls]})
+	dt=date.today()
+	dy=[dt-Δt(days=i)for i in range(7)][::-1]
+	dyn=[WD[d.weekday()]for d in dy][:-len(RD)]+RD
+	dyf=[d.isoformat()for d in dy]
+	dyo={l:{h:[(d.isoformat(),Occurence.objects.filter(date=d,habit=h).exists())for d in dy]for h in hb[l]}for l in ls}
+	return render(r,'lifetrack/lists.html',context={'ls':[{'l':l,'h':[{'h':h,'o':dyo[l][h]}for h in hb[l]],'d':dyn}for l in ls]})
 
 def addlist(r):
 	att,freq='',''
