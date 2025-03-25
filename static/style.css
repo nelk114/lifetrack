@@ -82,13 +82,15 @@ li a:hover:not(.active) {
 .days {
    display: flex;
    justify-content: left;
-   gap: 5px;
+   gap: 50px;
    padding-left:60px;
+   margin-left: 80px;
 }
-.tracker {
+.tracker { /* ticking boxes */
    display: flex;
    justify-content: center;
-   gap: 5px;
+   gap: 50px;
+   margin-left: 70px;
 }
 .day {
    width: 30px;
@@ -105,6 +107,7 @@ li a:hover:not(.active) {
 .habit-label {
    width: 60px;
    text-align: left;
+   margin-left: 10px;
 }
 .tracker input {
    width: 18px;
