@@ -67,9 +67,8 @@ li a:hover:not(.active) {
 .habit-form button.save {
    background-color: #5d8198;
    color: white;
-   float: right; /* Кнопка "Save" праворуч */
+   float: right; /* button "Save" on the right */
 }
-/* Очищення float для контейнера кнопок */
 .button-container::after {
    content: "";
    display: table;
