@@ -13,6 +13,7 @@ RD=['Yesterday','Today']
 RW=['Last Week','This Week']
 MÞ=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec']
 RM=['Last Month','This Month']
+adj={'daily':lambda x:x,'weekly':lambda x:x-Δt(days=x.weekday()),'monthly':lambda x:x.replace(day=1)}
 class HttpResponsePassthruRedirect(RedirBase):
     status_code=307
 
@@ -42,8 +43,8 @@ def lists(r):
 	dt=date.today()
 	dy=[dt-Δt(days=i)for i in range(7)][::-1]
 	dyn=[WD[d.weekday()]for d in dy][:-len(RD)]+RD
-	wt=dt-Δt(days=dt.weekday());wk=[wt-Δt(days=i*7)for i in range(8)][::-1];wkn=[f'WB {d.day}/{d.month}'for d in wk][:-len(RW)]+RW
-	mt=dt.replace(day=1);mþ=[mt];
+	wt=adj['weekly'](dt);wk=[wt-Δt(days=i*7)for i in range(8)][::-1];wkn=[f'W/b {d.day}/{d.month}'for d in wk][:-len(RW)]+RW
+	mt=adj['monthly'](dt);mþ=[mt];
 	for i in range(12-1):mþ.append(mt:=(mt-Δt(days=1)).replace(day=1))
 	mþ=mþ[::-1];mþn=[MÞ[d.month-1]for d in mþ][:-len(RM)]+RM
 	print(dt,dy,dyn,wk,wkn,mþ,mþn)
@@ -103,7 +104,7 @@ def addhabit(r):
 			try:
 				Habit.objects.get(name=att,list=l)
 			except Habit.DoesNotExist:
-				h=hb.save(commit=False);h.list=l;h.save()
+				h=hb.save(commit=False);h.list=l;h.sdate=adj[l.freq](h.sdate);h.save()
 				return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:editlist')))
 		else:print(hb.errors)
 	return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat()})
@@ -119,7 +120,7 @@ def edithabit(r):
 		if f=='save':
 			hb=HabitForm(r.POST)
 			if hb.is_valid():
-				h.name,h.sdate=hb.cleaned_data['name'],hb.cleaned_data['sdate'];h.save()
+				h.name,h.sdate=hb.cleaned_data['name'],adj[l.freq](hb.cleaned_data['sdate']);h.save()
 				return redirect(reverse('lifetrack:lists'))
 			else:print(hb.errors)
 		elif f=='delete':
