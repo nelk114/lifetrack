@@ -39,8 +39,6 @@ def login(r):
 	return render(r,'lifetrack/login.html',context={'user_form':uf,'registered':reg,'fail':fail},status=status)
 
 def lists(r):
-	ls=HabitList.objects.filter(user=r.user).order_by('name')
-	hb={l:Habit.objects.filter(list=l).order_by('name')for l in ls}
 	dt=date.today()
 	dy=[dt-Δt(days=i)for i in range(7)][::-1]
 	dyn=[WD[d.weekday()]for d in dy][:-len(RD)]+RD
@@ -49,6 +47,8 @@ def lists(r):
 	for i in range(12-1):mþ.append(mt:=(mt-Δt(days=1)).replace(day=1))
 	mþ=mþ[::-1];mþn=[MÞ[d.month-1]for d in mþ][:-len(RM)]+RM
 	print(dt,dy,dyn,wk,wkn,mþ,mþn)
+	ls=HabitList.objects.filter(user=r.user).order_by('name')
+	hb={l:Habit.objects.filter(list=l).order_by('name')for l in ls}
 	dyo={l:{h:[(d.isoformat(),Occurence.objects.filter(date=d,habit=h).exists())for d in dy]for h in hb[l]}for l in ls}
 	return render(r,'lifetrack/lists.html',context={'ls':[{'l':l,'h':[{'h':h,'o':dyo[l][h]}for h in hb[l]],'d':dyn}for l in ls]})
 
