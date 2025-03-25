@@ -22,23 +22,23 @@ def index(r):
 	return render(r,'lifetrack/index.html')
 
 def login(r):
-	reg,fail=False,False;status=200;uf=UserForm()
+	err={};status=200;uf=UserForm()
 	if r.method=='POST':
 		if r.POST.get('form')=='login':
 			n=r.POST.get('username');p=r.POST.get('password')
 			l=auth(username=n,password=p)
 			if l:
 				if l.is_active:li(r,l);return redirect(reverse('lifetrack:index'))
-				else:print(f'Disabled account: {n}');fail,status='disabled',401
-			else:print(f'Invalid login details: {n}, {p}');fail,status='login',401
+				else:print(f'Disabled account: {n}');status=401;err={'login':['Sorry, your account is disabled ☹︎ You must\'ve done something really wrong']}
+			else:print(f'Invalid login details: {n}, {p}');fail,status='login',401;err={'login':['Bad username or password']}
 		elif r.POST.get('form')=='signup':
 			uf=UserForm(r.POST)
 			if uf.is_valid():
 				l=uf.save();l.set_password(l.password);l.save()
-				reg=True
-			else:print(uf.errors)
-		else:print('Unsupported form submission')
-	return render(r,'lifetrack/login.html',context={'user_form':uf,'registered':reg,'fail':fail},status=status)
+				err={'':['Thanks for registering!','Now try logging in ☺︎ (if it doesn\'t work someone\'s done something wrong — hopefully not us!)']}
+			else:err=dict(uf.errors)
+		else:err={'':['You\'ve done something very strange and sent us a request we don\'t understand']}
+	return render(r,'lifetrack/login.html',context={'err':err},status=status)
 
 def lists(r):
 	dt=date.today()

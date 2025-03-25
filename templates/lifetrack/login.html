@@ -3,15 +3,11 @@
 {% block title %}Log In{% endblock %}
 {% block body %}
     <div>
-        {% if registered %}
-        <p>Thanks for registering!</p>
-        <p>Now try logging in ☺︎ (if it doesn't work someone's done something wrong — hopefully not us!)</p>
-        {% endif %}
-        {% if fail == 'disabled' %}
-        <p>Sorry, your account is disabled ☹︎ You must've done something really wrong</p>
-        {% elif fail == 'login' %}
-        <p>Bad username or password</p>
-        {% endif %}
+        {% for k,e in err.items %}
+        {% for m in e %}
+        <p class="err">{{m}}</p>
+        {% endfor %}
+        {% endfor %}
         <div class="login-container">
             <h2>Welcome Back !</h2>
             
