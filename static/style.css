@@ -228,3 +228,26 @@ a {
    font-size: 18px;
    color: #000000;
 }
+.lists-container {
+   display: flex;
+   flex-direction: column;
+   gap: 30px; /* This creates space between list blocks */
+   max-width: 1200px;
+   margin: 20px auto;
+   padding: 20px;
+}
+
+.list {
+   max-width: 400px;
+   margin: 0 auto; /* Changed from margin: auto to prevent double margin */
+   background: #f3ebe2;
+   padding: 20px;
+   border-radius: 10px;
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+   transition: transform 0.2s;
+}
+
+.list:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
