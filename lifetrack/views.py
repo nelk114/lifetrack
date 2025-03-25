@@ -48,7 +48,6 @@ def lists(r):
 	mt=adj['monthly'](dt);mþ=[mt];
 	for i in range(maxnr['monthly']-1):mþ.append(mt:=(mt-Δt(days=1)).replace(day=1))
 	mþ=mþ[::-1];mþn=[MÞ[d.month-1]for d in mþ][:-len(RM)]+RM
-	print(dt,dy,dyn,wk,wkn,mþ,mþn)
 	lss=[]
 	ls=HabitList.objects.filter(user=r.user).order_by('name')
 	for l in ls:
