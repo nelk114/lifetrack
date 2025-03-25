@@ -48,10 +48,18 @@ def lists(r):
 	for i in range(12-1):mþ.append(mt:=(mt-Δt(days=1)).replace(day=1))
 	mþ=mþ[::-1];mþn=[MÞ[d.month-1]for d in mþ][:-len(RM)]+RM
 	print(dt,dy,dyn,wk,wkn,mþ,mþn)
+	lss=[]
 	ls=HabitList.objects.filter(user=r.user).order_by('name')
-	hb={l:Habit.objects.filter(list=l).order_by('name')for l in ls}
-	dyo={l:{h:[(d.isoformat(),Occurence.objects.filter(date=d,habit=h).exists())for d in dy]for h in hb[l]}for l in ls}
-	return render(r,'lifetrack/lists.html',context={'ls':[{'l':l,'h':[{'h':h,'o':dyo[l][h]}for h in hb[l]],'d':dyn}for l in ls]})
+	for l in ls:
+		c={'l':l};hb=Habit.objects.filter(list=l).order_by('name')
+		if hb:
+			lh=[]
+			ld=[d for d in zip(*{'daily':(dy,dyn),'weekly':(wk,wkn),'monthly':(mþ,mþn)}[l.freq])]
+			for h in Habit.objects.filter(list=l).order_by('name'):
+				hc={'h':h,'o':[(d[0].isoformat(),Occurence.objects.filter(date=d[0],habit=h).exists(),d[0]>=h.sdate)for d in ld]};lh.append(hc)
+			c['h']=lh;c['d']=[d[1]for d in ld];
+		lss.append(c)
+	return render(r,'lifetrack/lists.html',context={'ls':lss})
 
 def addlist(r):
 	att,freq='',''
