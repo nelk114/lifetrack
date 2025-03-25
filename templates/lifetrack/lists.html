@@ -21,7 +21,7 @@
             <p class="habit-label">{{h.h}}</p>
             <div class="tracker">
 {% for o in h.o %}
-                <div class="day" id="{{o.0}}"><input type="checkbox"{% if o.1 %} checked{% endif %}></div>
+                <div class="day" id="{{o.0}}">{% if o.2 %}<input type="checkbox"{% if o.1 %} checked{% endif %}>{% endif %}</div>
 {% endfor %}
             </div>
         </div>
