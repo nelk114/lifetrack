@@ -41,7 +41,6 @@ def lists(r):
 	dt=date.today()
 	dy=[dt-Δt(days=i)for i in range(7)][::-1]
 	dyn=[WD[d.weekday()]for d in dy][:-len(RD)]+RD
-	dyf=[d.isoformat()for d in dy]
 	dyo={l:{h:[(d.isoformat(),Occurence.objects.filter(date=d,habit=h).exists())for d in dy]for h in hb[l]}for l in ls}
 	return render(r,'lifetrack/lists.html',context={'ls':[{'l':l,'h':[{'h':h,'o':dyo[l][h]}for h in hb[l]],'d':dyn}for l in ls]})
 
