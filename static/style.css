@@ -224,7 +224,6 @@ a {
    display: flex;
    flex-direction: column;
    gap: 30px; /* This creates space between list blocks */
-   width: 90%;
    max-width: 1000px;
    margin: 20px auto;
    padding: 20px;
