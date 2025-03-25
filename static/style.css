@@ -232,13 +232,14 @@ a {
    display: flex;
    flex-direction: column;
    gap: 30px; /* This creates space between list blocks */
-   max-width: 1200px;
+   max-width: 1000px;
    margin: 20px auto;
    padding: 20px;
 }
 
 .list {
-   max-width: 400px;
+   max-width: 1000px;
+   min-width: 1000px;
    margin: 0 auto; /* Changed from margin: auto to prevent double margin */
    background: #f3ebe2;
    padding: 20px;
