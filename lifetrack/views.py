@@ -54,7 +54,8 @@ def lists(r):
 		c={'l':l};hb=Habit.objects.filter(list=l).order_by('name')
 		if hb:
 			lh=[]
-			ld=[d for d in zip(*{'daily':(dy,dyn),'weekly':(wk,wkn),'monthly':(mþ,mþn)}[l.freq])]
+			sd=min([h.sdate for h in hb])
+			ld=[d for d in zip(*{'daily':(dy,dyn),'weekly':(wk,wkn),'monthly':(mþ,mþn)}[l.freq])if d[0]>=sd]
 			for h in Habit.objects.filter(list=l).order_by('name'):
 				hc={'h':h,'o':[(d[0].isoformat(),Occurence.objects.filter(date=d[0],habit=h).exists(),d[0]>=h.sdate)for d in ld]};lh.append(hc)
 			c['h']=lh;c['d']=[d[1]for d in ld];
