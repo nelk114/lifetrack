@@ -74,6 +74,7 @@ def login(r):
 	return render(r,'lifetrack/login.html',context={'err':err},status=status)
 
 def lists(r):
+	if not r.user.is_authenticated:return render(r,'lifetrack/loggedout.html',status=401)
 	dt=date.today()
 	dy=[dt-Δt(days=i)for i in range(maxnr['daily'])][::-1]
 	dyn=[WD[d.weekday()]for d in dy][:-len(RD)]+RD
@@ -96,6 +97,7 @@ def lists(r):
 	return render(r,'lifetrack/lists.html',context={'ls':lss})
 
 def addlist(r):
+	if not r.user.is_authenticated:return render(r,'lifetrack/loggedout.html',status=401)
 	freq=''
 	if r.method=='POST':freq=r.POST.get('freq')
 	att,err=add(r.POST,ListForm,{'user':r.user},'You already have a habit list named {att}',al,{'u':r.user})
@@ -103,10 +105,11 @@ def addlist(r):
 	else:return redirect(reverse('lifetrack:lists'))
 
 def editlist(r):
-	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
+	if not r.user.is_authenticated:return render(r,'lifetrack/loggedout.html',status=401)
+	if r.method!='POST':return render(r,'lifetrack/invalid.html',status=400)
 	L=r.POST.get('ls')
 	try:l=HabitList.objects.get(user=r.user,name=L)
-	except HabitList.DoesNotExist:return HttpResponse('Somehow you\'ve supplied a nonexistent list. Not meant to be able to happen',status=404)
+	except HabitList.DoesNotExist:return render(r,'lifetrack/missing.html',status=404)
 	freq=l.freq
 	hb=Habit.objects.filter(list=l).order_by('name')
 	if h:=r.POST.get('hb'):
@@ -119,22 +122,24 @@ def editlist(r):
 	else:return redirect(reverse('lifetrack:lists'))
 
 def addhabit(r):
-	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
+	if not r.user.is_authenticated:return render(r,'lifetrack/loggedout.html',status=401)
+	if r.method!='POST':return render(r,'lifetrack/invalid.html',status=400)
 	L=r.POST.get('ls')
 	try:l=HabitList.objects.get(user=r.user,name=L)
-	except HabitList.DoesNotExist:return HttpResponse('You\'nna try to add a habit to a a nonexistent list. Really?. I don\'t think so.',status=404)
+	except HabitList.DoesNotExist:return render(r,'lifetrack/missing.html',status=404)
 	att,err=add(r.POST,HabitForm,{'list':l},'You already have a habit named {att}'+f' in the list {L}',ah,{'l':l})
 	if err or r.POST.get('form')=='addhabit':return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat(),'err':err})
 	else:return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:editlist')))
 
 def edithabit(r):
-	if r.method!='POST':return HttpResponse('Begone URL Fishers getting here w/o POST; idk what habit to edit here',status=400)
+	if not r.user.is_authenticated:return render(r,'lifetrack/loggedout.html',status=401)
+	if r.method!='POST':return render(r,'lifetrack/invalid.html',status=400)
 	L,H=r.POST.get('ls'),r.POST.get('hb')
 	att=H
 	try:l=HabitList.objects.get(user=r.user,name=L)
-	except HabitList.DoesNotExist:return HttpResponse('You\'nna try to change a habit in a nonexistent list. Yeah sure lol.',status=404)
+	except HabitList.DoesNotExist:return render(r,'lifetrack/missing.html',status=404)
 	try:h=Habit.objects.get(name=H,list=l)
-	except Habit.DoesNotExist:return HttpResponse('You\'nna try to change a nonexistent habit. Craaazy.',status=404)
+	except Habit.DoesNotExist:return render(r,'lifetrack/missing.html',status=404)
 	sdate=r.POST.get('sdate');sdate=sdate if sdate else h.sdate.isoformat()
 	att,err=edit(r.POST,HabitForm,{'list':l},'You already have a habit list named {att}',eh,h,H)
 	if err or not r.POST.get('form'):
@@ -146,7 +151,7 @@ def log_out(r):
 	return redirect(reverse('lifetrack:index'))
 
 def occur(r):
-	if r.method!='POST':return HttpResponse(f'Stub. (occur)',status=400)
+	if r.method!='POST':return HttpResponse('Bad request',status=400)
 	s={'y':True,'n':False}[r.POST.get('set')]
 	dt=date.fromisoformat(r.POST.get('dt'))
 	try:hb=Habit.objects.get(list=HabitList.objects.get(user=r.user,name=r.POST.get('ls')),name=r.POST.get('hb'))
