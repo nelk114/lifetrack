@@ -1,16 +1,7 @@
-{% extends 'lifetrack/base.html' %}
-{% load staticfiles %}
+{% extends 'lifetrack/modif.html' %}
 {% block title %}Edit Habit{% endblock %}
-{% block body %}
-    <div class="container">
-	<h3>{{hb}}</h3>
-        <form class="habit-form" method="post" action="{% url 'lifetrack:edithabit' %}">
-				{% for k,e in err.items %}
-				{% for m in e %}
-				<p class="err">{{m}}</p>
-				{% endfor %}
-				{% endfor %}
-				{% csrf_token %}
+{% block heading %}<h3>{{hb}}</h3>{% endblock %}
+{% block form %}
 				<input type="hidden" name="ls" value="{{ls}}" />
 				<input type="hidden" name="hb" value="{{hb}}" />
             <input type="text" name="name" placeholder="Enter or edit habit text" value="{{attempt}}">
@@ -18,7 +9,4 @@
             <div class="button-container">
                 <button class="delete" name="form" type="submit" value="delete">Delete Habit</button>
                 <button class="save" name="form" type="submit" value="save">Save</button>
-            </div>
-        </form>
-    </div>
 {% endblock %}

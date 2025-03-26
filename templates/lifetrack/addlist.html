@@ -1,15 +1,6 @@
-{% extends 'lifetrack/base.html' %}
-{% load staticfiles %}
+{% extends 'lifetrack/modif.html' %}
 {% block title %}Add List{% endblock %}
-{% block body %}
-<div class="container">
-<form class="habit-form" method="post" action="{% url 'lifetrack:addlist' %}">
-{% for k,e in err.items %}
-{% for m in e %}
-<p class="err">{{m}}</p>
-{% endfor %}
-{% endfor %}
-{% csrf_token %}
+{% block form %}
 <input type="text" name="name" placeholder="List name" value="{{attempt}}">
 <select name="freq">
 {% for e in f %}
@@ -19,7 +10,4 @@
 <div class="button-container">
 <button class="cancel" name="form" value="cancel" >Cancel</button>
 <button class="save" name="form" value="add">Save</button>
-</div>
-</form>
-</div>
 {% endblock %}

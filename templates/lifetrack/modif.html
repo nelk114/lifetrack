@@ -1,0 +1,16 @@
+{% extends 'lifetrack/base.html' %}
+{% block body %}
+<div class="container">
+{% block heading %}{% endblock %}
+<form class="habit-form" method="post" action="{% url 'lifetrack:addhabit' %}">
+{% for k,e in err.items %}
+{% for m in e %}
+<p class="err">{{m}}</p>
+{% endfor %}
+{% endfor %}
+{% csrf_token %}
+{% block form %}{% endblock %}
+</div>
+</form>
+</div>
+{% endblock %}
