@@ -51,13 +51,15 @@ li a:hover:not(.active) {
    width: 100%;
    padding: 15px;
    margin: 20px 0; 
-   border: 1px solid #5d8198;
-   border-radius: 4px;
+   border: 3px solid #5d8198;
+   border-radius: 10px;
    font-size: 16px;
    resize: vertical;
    min-height: 100px; 
    box-sizing: border-box;
-   background-color: #dfd4cd;
+   color: white;
+   background-color:#5d8198;;
+}
 }
 .habit-form button.delete {
    background-color: #5d8198;
@@ -138,7 +140,7 @@ input {
   margin: 10px 0;
   border: none;
   background-color: #E6D9D0;
-  border-radius: 5px;
+  border-radius: 10px;
   box-sizing: border-box; 
 }
 button {
@@ -148,7 +150,7 @@ button {
   margin: 10px;
   padding: 10px 20px;
   cursor: pointer;
-  border-radius: 5px;
+  border-radius: 10px;
   font-size: 16px;
 }
 a {
@@ -245,4 +247,16 @@ a {
 .list:hover {
    transform: translateY(-5px);
    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+select {
+   width: 100%;
+   padding: 15px;
+   border: 3px solid #5d8198;
+   border-radius: 10px;
+   font-size: 16px;
+   color: white;
+   background-color:#5d8198;
+   box-sizing: border-box;
+  
 }
