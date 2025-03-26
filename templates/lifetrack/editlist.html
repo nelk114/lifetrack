@@ -5,10 +5,15 @@
 <div class="container">
 <h3>{{ls}}</h3>
 <form class="habit-form" method="post" action="{% url 'lifetrack:editlist' %}">
+{% for k,e in err.items %}
+{% for m in e %}
+<p class="err">{{m}}</p>
+{% endfor %}
+{% endfor %}
 {% csrf_token %}
 <input type="hidden" name="ls" value="{{ls}}" />
 <input type="hidden" name="freq" value="{{freq}}" />
-<input type="text" name="name" placeholder="List name" value="{{ls}}" />
+<input type="text" name="name" placeholder="List name" value="{{attempt}}" />
 <p>{{freq.title}} habits</p>
 <div class="button-container">
 <button class="addhabit" name="form" value="addhabit">Add Habit</button>

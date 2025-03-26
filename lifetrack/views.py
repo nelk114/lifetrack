@@ -80,26 +80,33 @@ def addlist(r):
 
 def editlist(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
+	err={}
 	L=r.POST.get('ls')
+	att=L
 	try:l=HabitList.objects.get(user=r.user,name=L)
 	except HabitList.DoesNotExist:return HttpResponse('Somehow you\'ve supplied a nonexistent list. Not meant to be able to happen',status=404)
+	freq=l.freq
 	hb=Habit.objects.filter(list=l).order_by('name')
 	if f:=r.POST.get('form'):
 		if f=='save':
 			ls=ListForm(r.POST)
 			if ls.is_valid():
-				l.name,l.freq=ls.cleaned_data['name'],ls.cleaned_data['freq'];l.save()
-				return redirect(reverse('lifetrack:lists'))
-			else:print(ls.errors)
+				att=ls.cleaned_data['name']
+				try:
+					if l.name!=att:
+						HabitList.objects.get(user=r.user,name=att)
+						err={'name':[f'You already have a habit list named {att}']}
+				except HabitList.DoesNotExist:l.name=att
+				l.freq=ls.cleaned_data['freq'];l.save()
+				if not err:return redirect(reverse('lifetrack:lists'))
+			else:err=dict(ls.errors)
 		elif f=='delete':
 			l.delete();return redirect(reverse('lifetrack:lists'))
 		elif f=='addhabit':
 			return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:addhabit')))
-		else:freq=l.freq
 	elif h:=r.POST.get('hb'):
 		return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:edithabit')))
-	else:freq=l.freq
-	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq,'hb':hb})
+	return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq,'hb':hb,'attempt':att,'err':err})
 
 def addhabit(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
@@ -122,7 +129,9 @@ def addhabit(r):
 
 def edithabit(r):
 	if r.method!='POST':return HttpResponse('Begone URL Fishers getting here w/o POST; idk what habit to edit here',status=400)
+	err={}
 	L,H=r.POST.get('ls'),r.POST.get('hb')
+	att=H
 	try:l=HabitList.objects.get(user=r.user,name=L)
 	except HabitList.DoesNotExist:return HttpResponse('You\'nna try to change a habit in a nonexistent list. Yeah sure lol.',status=404)
 	try:h=Habit.objects.get(name=H,list=l)
@@ -131,14 +140,18 @@ def edithabit(r):
 		if f=='save':
 			hb=HabitForm(r.POST)
 			if hb.is_valid():
-				h.name,h.sdate=hb.cleaned_data['name'],adj[l.freq](hb.cleaned_data['sdate']);h.save()
-				return redirect(reverse('lifetrack:lists'))
-			else:print(hb.errors)
+				att=hb.cleaned_data['name']
+				try:
+					if h.name!=att:
+						Habit.objects.get(name=att,list=l)
+						err={'name':[f'You already have a habit named {att} in the list {L}']}
+				except Habit.DoesNotExist:h.name=att
+				h.sdate=adj[l.freq](hb.cleaned_data['sdate']);h.save()
+				if not err:return redirect(reverse('lifetrack:lists'))
+			else:err=dict(hb.errors)
 		elif f=='delete':
 			h.delete();return redirect(reverse('lifetrack:lists'))
-		else:freq=l.freq
-	else:freq=l.freq
-	return render(r,'lifetrack/edithabit.html',context={'hb':h,'ls':l})
+	return render(r,'lifetrack/edithabit.html',context={'hb':h,'ls':l,'attempt':att,'err':err})
 
 def log_out(r):
 	logout(r)
