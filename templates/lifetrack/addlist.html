@@ -4,9 +4,11 @@
 {% block body %}
 <div class="container">
 <form class="habit-form" method="post" action="{% url 'lifetrack:addlist' %}">
-{% if attempt %}
-<p>You already have a list named {{attempt}}</p>
-{% endif %}
+{% for k,e in err.items %}
+{% for m in e %}
+<p class="err">{{m}}</p>
+{% endfor %}
+{% endfor %}
 {% csrf_token %}
 <input type="text" name="name" placeholder="List name" value="{{attempt}}">
 <select name="freq">

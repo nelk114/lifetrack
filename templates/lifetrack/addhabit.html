@@ -5,9 +5,11 @@
 <div class="container">
 <h3>{{ls}}</h3>
 <form class="habit-form" method="post" action="{% url 'lifetrack:addhabit' %}">
-{% if attempt %}
-<p>You already have a habit named {{attempt}} in the list {{ls}}</p>
-{% endif %}
+{% for k,e in err.items %}
+{% for m in e %}
+<p class="err">{{m}}</p>
+{% endfor %}
+{% endfor %}
 {% csrf_token %}
 <input type="hidden" name="ls" value="{{ls}}" />
 <input type="hidden" name="sdate" value="{{date}}" />

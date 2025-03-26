@@ -63,7 +63,7 @@ def lists(r):
 	return render(r,'lifetrack/lists.html',context={'ls':lss})
 
 def addlist(r):
-	att,freq='',''
+	att,freq,err='','',{}
 	if r.method=='POST' and r.POST.get('form'):
 		freq=r.POST.get('freq')
 		ls=ListForm(r.POST)
@@ -74,8 +74,9 @@ def addlist(r):
 			except HabitList.DoesNotExist:
 				l=ls.save(commit=False);l.user=r.user;l.save()
 				return redirect(reverse('lifetrack:lists'))
-		else:print(ls.errors)
-	return render(r,'lifetrack/addlist.html',context={'attempt':att,'freq':freq,'f':F})
+			err={'name':[f'You already have a habit list named {att}']}
+		else:err=dict(ls.errors)
+	return render(r,'lifetrack/addlist.html',context={'attempt':att,'freq':freq,'f':F,'err':err})
 
 def editlist(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
@@ -102,7 +103,7 @@ def editlist(r):
 
 def addhabit(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
-	att=''
+	att,err='',{}
 	L=r.POST.get('ls')
 	try:l=HabitList.objects.get(user=r.user,name=L)
 	except HabitList.DoesNotExist:return HttpResponse('You\'nna try to add a habit to a a nonexistent list. Really?. I don\'t think so.',status=404)
@@ -115,8 +116,9 @@ def addhabit(r):
 			except Habit.DoesNotExist:
 				h=hb.save(commit=False);h.list=l;h.sdate=adj[l.freq](h.sdate);h.save()
 				return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:editlist')))
-		else:print(hb.errors)
-	return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat()})
+			err={'name':[f'You already have a habit named {att} in the list {L}']}
+		else:err=dict(hb.errors)
+	return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat(),'err':err})
 
 def edithabit(r):
 	if r.method!='POST':return HttpResponse('Begone URL Fishers getting here w/o POST; idk what habit to edit here',status=400)
