@@ -2,17 +2,8 @@ body {
    font-family: Arial, sans-serif;
    margin: 0;
    padding: 0;
-   /*padding: 20px;*/
    text-align: center;
    background-color: #f3ebe2;
-   /*background-color: #dfd4cd;*/
-}
-body{
-  font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 0;
-  text-align: center;
-  background-color: #f5e8de;
 }
 ul {
  list-style-type: none;
@@ -166,7 +157,6 @@ a {
 .header {
    padding: 15px;
    background-color: #dfd4cd;
-   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
    font-family: Georgia, serif;
    font-size: 70px;
    line-height: 0.5;
@@ -186,12 +176,12 @@ a {
 .hero p {
    font-size: 30px;
 }
-/* Container for testimonials */
+/* Container for feedback */
 .feedback-container {
    display: flex;
    gap: 50px;
 }
-/* Individual testimonial card */
+/* Individual feedback card */
 .feedback-card {
    margin-left: 50px;
    background-color: #dfd4cd; /* Light beige background */
@@ -200,6 +190,12 @@ a {
    max-width: 350px;
    max-height: 280px;
    border: 10px solid #5d8198; /* Blue-gray border */
+   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+   transition: transform 0.3s;
+}
+.feedback-card:hover {
+   transform: translateY(-5px);
+   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
 }
 /* Header with name and image */
 .feedback-header {
@@ -222,7 +218,7 @@ a {
    margin: 10px 0;
    text-align: left;
 }
-/* Testimonial text */
+/* Review text */
 .feedback-text {
    text-align: left;
    font-size: 18px;
