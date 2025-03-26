@@ -104,7 +104,6 @@ def addlist(r):
 
 def editlist(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
-	err={}
 	L=r.POST.get('ls')
 	try:l=HabitList.objects.get(user=r.user,name=L)
 	except HabitList.DoesNotExist:return HttpResponse('Somehow you\'ve supplied a nonexistent list. Not meant to be able to happen',status=404)
@@ -114,7 +113,7 @@ def editlist(r):
 		return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:edithabit')))
 	att,err=edit(r.POST,ListForm,{'user':r.user},'You already have a habit list named {att}',el,l,L)
 	if r.POST.get('form')=='addhabit':
-			return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:addhabit')))
+		return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:addhabit')))
 	if err or not r.POST.get('form'):
 		return render(r,'lifetrack/editlist.html',context={'ls':L,'freq':freq,'hb':hb,'attempt':att,'err':err})
 	else:return redirect(reverse('lifetrack:lists'))
@@ -130,7 +129,6 @@ def addhabit(r):
 
 def edithabit(r):
 	if r.method!='POST':return HttpResponse('Begone URL Fishers getting here w/o POST; idk what habit to edit here',status=400)
-	err={}
 	L,H=r.POST.get('ls'),r.POST.get('hb')
 	att=H
 	try:l=HabitList.objects.get(user=r.user,name=L)
