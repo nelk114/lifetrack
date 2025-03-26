@@ -62,8 +62,8 @@ def login(r):
 			l=auth(username=n,password=p)
 			if l:
 				if l.is_active:li(r,l);return redirect(reverse('lifetrack:index'))
-				else:print(f'Disabled account: {n}');status=401;err={'login':['Sorry, your account is disabled ☹︎ You must\'ve done something really wrong']}
-			else:print(f'Invalid login details: {n}, {p}');fail,status='login',401;err={'login':['Bad username or password']}
+				else:status=401;err={'login':['Sorry, your account is disabled ☹︎ You must\'ve done something really wrong']}
+			else:status=401;err={'login':['Bad username or password']}
 		elif r.POST.get('form')=='signup':
 			uf=UserForm(r.POST)
 			if uf.is_valid():
@@ -147,17 +147,15 @@ def log_out(r):
 
 def occur(r):
 	if r.method!='POST':return HttpResponse(f'Stub. (occur)',status=400)
-	[print(o,r.POST.get(o))for o in r.POST]
 	s={'y':True,'n':False}[r.POST.get('set')]
 	dt=date.fromisoformat(r.POST.get('dt'))
 	try:hb=Habit.objects.get(list=HabitList.objects.get(user=r.user,name=r.POST.get('ls')),name=r.POST.get('hb'))
-	except(HabitList.DoesNotExist,Habit.DoesNotExist):print(1235);set=not s
+	except(HabitList.DoesNotExist,Habit.DoesNotExist):set=not s
 	try:
 		oc=Occurence.objects.get(date=dt,habit=hb);
-		if not s:oc.delete();set=False;print('del\t',oc)
-		else:set=True;print('ext\t',oc)
+		if not s:oc.delete();set=False
+		else:set=True
 	except Occurence.DoesNotExist:
-		if s:oc=Occurence(date=dt,habit=hb);oc.save();set=True;print('reg\t',oc)
-		else:set=False;print('non\t',oc)
-	[print(o)for o in Occurence.objects.filter(habit=hb)]
+		if s:oc=Occurence(date=dt,habit=hb);oc.save();set=True
+		else:set=False
 	return HttpResponse(f"{['n','y'][set]}")
