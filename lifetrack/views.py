@@ -17,6 +17,22 @@ adj={'daily':lambda x:x,'weekly':lambda x:x-Δt(days=x.weekday()),'monthly':lamb
 maxnr={'daily':7,'weekly':8,'monthly':10}
 class HttpResponsePassthruRedirect(RedirBase):
     status_code=307
+def add(p,f,v,m,F,V):
+	att,err='',{}
+	if p.get('form')=='add':
+		el=f(p)
+		if el.is_valid():
+			att=el.cleaned_data['name']
+			try:f.Meta.model.objects.get(name=att,**v)
+			except f.Meta.model.DoesNotExist:	#The control flow here is somewhat twisted due to the exception‐based model
+				e=el.save(commit=False);F(e,**V);e.save()
+			else:err={'name':[m.format(att=att)]}
+		else:err=dict(hb.errors)
+	elif p.get('form')=='addhabit':
+		err={None}
+	return att,err
+def al(l,u):l.user=u
+def ah(h,l):h.list=l;h.sdate=adj[l.freq](h.sdate)
 
 def index(r):
 	return render(r,'lifetrack/index.html')
@@ -63,20 +79,11 @@ def lists(r):
 	return render(r,'lifetrack/lists.html',context={'ls':lss})
 
 def addlist(r):
-	att,freq,err='','',{}
-	if r.method=='POST' and r.POST.get('form'):
-		freq=r.POST.get('freq')
-		ls=ListForm(r.POST)
-		if ls.is_valid():
-			att=ls.cleaned_data['name']
-			try:
-				HabitList.objects.get(user=r.user,name=att)
-			except HabitList.DoesNotExist:
-				l=ls.save(commit=False);l.user=r.user;l.save()
-				return redirect(reverse('lifetrack:lists'))
-			err={'name':[f'You already have a habit list named {att}']}
-		else:err=dict(ls.errors)
-	return render(r,'lifetrack/addlist.html',context={'attempt':att,'freq':freq,'f':F,'err':err})
+	freq=''
+	if r.method=='POST':freq=r.POST.get('freq')
+	att,err=add(r.POST,ListForm,{'user':r.user},'You already have a habit list named {att}',al,{'u':r.user})
+	if err:return render(r,'lifetrack/addlist.html',context={'attempt':att,'freq':freq,'f':F,'err':err})
+	else:return redirect(reverse('lifetrack:lists'))
 
 def editlist(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
@@ -110,22 +117,12 @@ def editlist(r):
 
 def addhabit(r):
 	if r.method!='POST':return HttpResponse('How did you get here w/o POST; noöne\'ll know which list y\'want to edit!!1! URL Fishers get off my lawn',status=400)
-	att,err='',{}
 	L=r.POST.get('ls')
 	try:l=HabitList.objects.get(user=r.user,name=L)
 	except HabitList.DoesNotExist:return HttpResponse('You\'nna try to add a habit to a a nonexistent list. Really?. I don\'t think so.',status=404)
-	if r.POST.get('form')=='add':
-		hb=HabitForm(r.POST)
-		if hb.is_valid():
-			att=hb.cleaned_data['name']
-			try:
-				Habit.objects.get(name=att,list=l)
-			except Habit.DoesNotExist:
-				h=hb.save(commit=False);h.list=l;h.sdate=adj[l.freq](h.sdate);h.save()
-				return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:editlist')))
-			err={'name':[f'You already have a habit named {att} in the list {L}']}
-		else:err=dict(hb.errors)
-	return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat(),'err':err})
+	att,err=add(r.POST,HabitForm,{'list':l},'You already have a habit named {att}'+f' in the list {L}',ah,{'l':l})
+	if err:return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat(),'err':err})
+	else:return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:editlist')))
 
 def edithabit(r):
 	if r.method!='POST':return HttpResponse('Begone URL Fishers getting here w/o POST; idk what habit to edit here',status=400)

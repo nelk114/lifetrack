@@ -5,7 +5,7 @@
 {% block body %}
     <form method="post" action="{% url 'lifetrack:addlist' %}">
         {% csrf_token %}
-        <button type="submit">Add List</button>
+        <button type="submit" name="form" value="addhabit">Add List</button>
     </form>
     
     <div class="lists-container">
