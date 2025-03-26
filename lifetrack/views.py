@@ -27,9 +27,7 @@ def add(p,f,v,m,F,V):
 			except f.Meta.model.DoesNotExist:	#The control flow here is somewhat twisted due to the exception‐based model
 				e=el.save(commit=False);F(e,**V);e.save()
 			else:err={'name':[m.format(att=att)]}
-		else:err=dict(hb.errors)
-	elif p.get('form')=='addhabit':
-		err={None}
+		else:err=dict(el.errors)
 	return att,err
 def al(l,u):l.user=u
 def ah(h,l):h.list=l;h.sdate=adj[l.freq](h.sdate)
@@ -82,7 +80,7 @@ def addlist(r):
 	freq=''
 	if r.method=='POST':freq=r.POST.get('freq')
 	att,err=add(r.POST,ListForm,{'user':r.user},'You already have a habit list named {att}',al,{'u':r.user})
-	if err:return render(r,'lifetrack/addlist.html',context={'attempt':att,'freq':freq,'f':F,'err':err})
+	if err or not r.POST.get('form'):return render(r,'lifetrack/addlist.html',context={'attempt':att,'freq':freq,'f':F,'err':err})
 	else:return redirect(reverse('lifetrack:lists'))
 
 def editlist(r):
@@ -121,7 +119,7 @@ def addhabit(r):
 	try:l=HabitList.objects.get(user=r.user,name=L)
 	except HabitList.DoesNotExist:return HttpResponse('You\'nna try to add a habit to a a nonexistent list. Really?. I don\'t think so.',status=404)
 	att,err=add(r.POST,HabitForm,{'list':l},'You already have a habit named {att}'+f' in the list {L}',ah,{'l':l})
-	if err:return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat(),'err':err})
+	if err or r.POST.get('form')=='addhabit':return render(r,'lifetrack/addhabit.html',context={'ls':L,'attempt':att,'date':date.today().isoformat(),'err':err})
 	else:return HttpResponsePassthruRedirect(resolve(reverse('lifetrack:editlist')))
 
 def edithabit(r):
