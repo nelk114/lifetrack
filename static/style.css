@@ -51,23 +51,15 @@ li a:hover:not(.active) {
    background-color: #dfd4cd;
 }
 .habit-form button.delete {
-   background-color: #5d8198;
-   color: white;
 	float: left;
 }
 .habit-form button.save {
-   background-color: #5d8198;
-   color: white;
    float: right;
 }
 .habit-form button.cancel{
-   background-color: #5d8198;
-   color: white;
    float: left;
 }
 .habit-form button.edithabit{
-   background-color: #5d8198;
-   color: white;
    float: left;
    white-space: nowrap;
 }
@@ -264,4 +256,7 @@ select {
    background-color:#5d8198;
    box-sizing: border-box;
   
+}
+.err {
+	color: #c70017;
 }
