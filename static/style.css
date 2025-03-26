@@ -46,10 +46,9 @@ li a:hover:not(.active) {
    border-radius: 10px;
    font-size: 16px;
    resize: vertical;
-   min-height: 100px; 
+   min-height: 100px;
    box-sizing: border-box;
-   color: white;
-   background-color:#5d8198;;
+   background-color: #dfd4cd;
 }
 .habit-form button.delete {
    background-color: #5d8198;
@@ -65,6 +64,12 @@ li a:hover:not(.active) {
    background-color: #5d8198;
    color: white;
    float: left;
+}
+.habit-form button.edithabit{
+   background-color: #5d8198;
+   color: white;
+   float: left;
+   white-space: nowrap;
 }
 .button-container::after {
    content: "";
