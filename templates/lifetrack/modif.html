@@ -2,7 +2,7 @@
 {% block body %}
 <div class="container">
 {% block heading %}{% endblock %}
-<form class="habit-form" method="post" action="{% url 'lifetrack:addhabit' %}">
+<form class="habit-form" method="post" action="{% block action %}{% endblock %}">
 {% for k,e in err.items %}
 {% for m in e %}
 <p class="err">{{m}}</p>

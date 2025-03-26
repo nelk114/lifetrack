@@ -1,6 +1,7 @@
 {% extends 'lifetrack/modif.html' %}
 {% block title %}Edit List: {{ls}}{% endblock %}
 {% block heading %}<h3>{{ls}}</h3>{% endblock %}
+{% block action %}{% url 'lifetrack:editlist' %}{% endblock %}
 {% block form %}
 <input type="hidden" name="ls" value="{{ls}}" />
 <input type="hidden" name="freq" value="{{freq}}" />

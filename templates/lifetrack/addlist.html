@@ -1,5 +1,6 @@
 {% extends 'lifetrack/modif.html' %}
 {% block title %}Add List{% endblock %}
+{% block action %}{% url 'lifetrack:addlist' %}{% endblock %}
 {% block form %}
 <input type="text" name="name" placeholder="List name" value="{{attempt}}">
 <select name="freq">
