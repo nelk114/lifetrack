@@ -8,7 +8,7 @@
         <button type="submit">Add List</button>
     </form>
     
-    <div class="lists-container">
+    <div class="lists-container" oninput="tickBox(event)">
         {% for l in ls %}
             <div class="list" id="{{l.l}}">
                 <h3>{{l.l}}</h3>
