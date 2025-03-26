@@ -60,7 +60,6 @@ li a:hover:not(.active) {
    color: white;
    background-color:#5d8198;;
 }
-}
 .habit-form button.delete {
    background-color: #5d8198;
    color: white;
@@ -70,6 +69,11 @@ li a:hover:not(.active) {
    background-color: #5d8198;
    color: white;
    float: right;
+}
+.habit-form button.cancel{
+   background-color: #5d8198;
+   color: white;
+   float: left;
 }
 .button-container::after {
    content: "";
