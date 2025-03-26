@@ -21,3 +21,9 @@ do
 Obviously as developm't continues
 this'll only be necessary if the models change
 (or if reïnstalling fsr)
+
+Since `DEBUG` mode is off,
+`python manage.py runserver`
+won't serve static files;
+apparently it expects that to be done by the (‘proper’) webserver.
+`python manage.py runserver --insecure` will bypass this though.
