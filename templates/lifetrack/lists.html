@@ -17,12 +17,12 @@
                 <h3>{{l.l}}</h3>
                 {% if not l.h %}
                 <p class="hint">No habits yet</p>
+                {% else %}
                 <div class="days">
                     {% for d in l.d %}
                         <div class="day">{{d}}</div>
                     {% endfor %}
                 </div>
-                {% else %}
                 {% for h in l.h %}
                     <div class="habit-row" id="{{h.h}}">
                         <p class="habit-label">{{h.h}}</p>
