@@ -28,7 +28,7 @@ SECRET_KEY = 'szo5!7m+7c95g$y0jqwz+68e)((+38n*5gq62ksy(_^h#5qhz-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ['lifetrack.pythonanywhere.com']
+ALLOWED_HOSTS = ['lifetrack.pythonanywhere.com','localhost','127.0.0.1','::1']
 
 
 # Application definition
